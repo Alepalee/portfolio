@@ -3,10 +3,13 @@ html{
 }
 
 body {
-    background-color: #3AF769;
+    background-color: #6FFF00;
     margin: 0;
-    font-weight: 700;
     font-style: normal;
+    min-height: 100vh;        
+    display: flex;            
+    align-items: center;      
+    justify-content: center;  
 }
 
 a{
@@ -17,7 +20,7 @@ a{
 h1, h2, h3, h4, h5, h6, p, ul, ol {
     margin: 0;
     padding: 0;
-    color: #000036;
+    color: #000000;
 }
 
 img {
@@ -25,7 +28,89 @@ img {
     display: block;
 }
 
-.maintitle{
+.maintitle {
     font-family: "Funnel Display", sans-serif;
-    font-size: 5vw;
+    font-size: 15em;
+    line-height: 75%;
+    font-weight: 600;
+    text-align: center;
+    user-select: none;
+}
+
+.portfolio{
+    font-family: "Funnel Display", sans-serif;
+    font-size: 4em;
+    color: white;
+    line-height: 75%;
+    font-weight: 600;
+    position: absolute;
+    top: 27%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    user-select: none;
+}
+
+nav{
+    position: absolute;
+    top: 73%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    align-items: center;
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    column-width: 2em;
+    gap: 4em;
+    width: 100%;
+}
+
+nav a {
+    font-family: "Funnel Display", sans-serif;
+    text-transform: uppercase;
+    color: white;
+    font-size: 3em;
+    line-height: 75%;
+    font-weight: 300;
+    margin: 24px;
+    display: inline-block;
+    transition: font-weight 0.3s ease;
+    text-align: center
+}
+
+nav a::after {
+    content: attr(data-text);
+    display: block;
+    font-weight: 700;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
+
+nav a:hover {
+    font-weight: 700;
+}
+
+.chisono{
+    grid-column: 1;
+}
+
+.lavori{
+    grid-column: 2;
+}
+
+.contatti{
+    grid-column: 3;
+}
+
+footer{
+        font-family: "Funnel Sans", sans-serif;
+        font-size: 1em;
+        line-height: 75%;
+        font-weight: 400;
+        position: absolute;
+        bottom: 2%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        text-align: center;
 }
