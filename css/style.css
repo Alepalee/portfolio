@@ -4,24 +4,33 @@ html{
 
 body {
     font-family: "Funnel Display", sans-serif;;
-    background-color: #6FFF00;
-    margin: 0;
+    background-color: black;
     font-style: normal;
-    min-height: 100vh;        
-    display: flex;            
-    align-items: center;      
-    justify-content: center;  
+    margin: 0;
+}
+
+.gruppohome{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    gap: 5em;
+}
+
+header{
+    display: flex;
 }
 
 a{
     text-decoration: none;
-    color: black;
+    color: #6FFF00;
 }
 
 h1, h2, h3, h4, h5, h6, p, ul, ol {
     margin: 0;
     padding: 0;
-    color: #000000;
+    color: white;
 }
 
 img {
@@ -35,12 +44,21 @@ img {
     font-weight: 600;
     text-align: center;
     user-select: none;
+    text-transform: uppercase;
+}
+
+.testohero{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .portfolio{
     font-family: "Funnel Display", sans-serif;
     font-size: 4em;
-    color: white;
+    color: #6FFF00;
     line-height: 75%;
     font-weight: 600;
     position: absolute;
@@ -53,7 +71,7 @@ img {
 
 nav{
     position: absolute;
-    top: 73%;
+    top: 28%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     align-items: center;
@@ -63,6 +81,7 @@ nav{
     column-width: 2em;
     gap: 4em;
     width: 100%;
+    
 }
 
 .topinfo{
@@ -71,15 +90,13 @@ nav{
     justify-content: center;
     font-size: 1.2em;
     gap: 10em;
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    user-select: none;
+    padding-top: 2em;
 }
 
-nav a {
+#voce{
     text-transform: uppercase;
-    color: white;
+    color: #6FFF00;
     font-size: 3em;
     line-height: 75%;
     font-weight: 300;
@@ -89,7 +106,7 @@ nav a {
     text-align: center
 }
 
-nav a::after {
+#voce::after {
     content: attr(data-text);
     display: block;
     font-weight: 700;
@@ -98,7 +115,7 @@ nav a::after {
     overflow: hidden;
 }
 
-nav a:hover {
+#voce:hover {
     font-weight: 700;
 }
 
@@ -114,13 +131,18 @@ nav a:hover {
     grid-column: 3;
 }
 
+.testoinfo{
+    font-family: "Funnel Sans", "Funnel Display", "Helvetica", sans-serif;
+    font-size: 3.2em;
+    line-height: 110%;
+}
+
 footer{
         font-size: 1.2em;
         line-height: 75%;
         font-weight: 400;
-        position: absolute;
-        bottom: 2%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 2em;
 }
