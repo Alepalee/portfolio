@@ -4,7 +4,7 @@ html{
 
 body {
     font-family: "Funnel Display", sans-serif;;
-    background-color: black;
+    background-color: #6FFF00;
     font-style: normal;
     margin: 0;
 }
@@ -16,7 +16,7 @@ body {
     justify-content: center;
     align-items: center;
     margin: auto;
-    gap: 5em;
+    gap: 5.2em;
     width: 90vw;
 }
 
@@ -30,7 +30,7 @@ header{
 
 a{
     text-decoration: none;
-    color: #6FFF00;
+    color: white;
 }
 
 .paragrafo a:hover{
@@ -42,7 +42,7 @@ a{
 h1, h3, h4, h5, h6, p, ul, ol {
     margin: 0;
     padding: 0;
-    color: white;
+    color: black;
 }
 
 h2{
@@ -76,7 +76,7 @@ img {
 .portfolio{
     font-family: "Funnel Display", sans-serif;
     font-size: 4em;
-    color: #6FFF00;
+    color: white;
     line-height: 75%;
     font-weight: 600;
     position: absolute;
@@ -112,14 +112,13 @@ nav{
     padding-top: 2em;
 }
 
-
 #voce{
     font-size: 3em;
     text-transform: uppercase;
 }
 
 #voce{
-    color: #6FFF00;
+    color: white;
     line-height: 75%;
     font-weight: 300;
     display: inline-block;
@@ -139,7 +138,6 @@ nav{
 #voce:hover {
     font-weight: 700;
 }
-
 
 .chisono{
     grid-column: 1;
@@ -162,14 +160,14 @@ nav{
 }
 
 footer{
-        font-size: 0.8em;
-        line-height: 75%;
-        font-weight: 400;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-top: 5vh;
-        padding-bottom: 2em;
+    font-size: 0.8em;
+    line-height: 75%;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5vh;
+    padding-bottom: 2em;
 }
 
 .altrotesto{
@@ -194,4 +192,53 @@ footer{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 10vh;
+}
+
+#voceindice{
+    font-size: 3em;
+    text-transform: uppercase;
+}
+
+#voceindice{
+    color: black;
+    line-height: 90%;
+    font-weight: 300;
+    display: inline-block;
+    transition: font-weight 0.3s ease;
+}
+
+#voceindice::after {
+    content: attr(data-text);
+    display: block;
+    font-weight: 700;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
+
+#voceindice:hover {
+    font-weight: 700;
+}
+
+.indicelavori{
+    color: black;
+    padding-bottom: 0.1em;
+    margin-bottom: 0.4em;
+    border-bottom: 0.08em solid white;
+    display: flex;
+    text-align: left;
+    width: fit-content;
+}
+
+#indice{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: auto;
+}
+
+sup{
+    color: white;
+    font-size: 60%;
+    line-height: 0;
 }
