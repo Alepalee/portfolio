@@ -46,9 +46,17 @@ h1, h3, h4, h5, h6, p, ul, ol {
 }
 
 h2{
-    color: #6FFF00;
+    color: black;
     margin: 0;
-    font-size: 1.1em;
+    font-size: 1.3em;
+}
+
+b{
+    color: white;
+}
+
+u{
+    color: white;
 }
 
 img {
@@ -89,17 +97,13 @@ img {
 
 nav{
     position: absolute;
-    top: 28%;
+    top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    align-items: center;
-    margin: auto;
-    justify-content: center;
-    display: flex;
-    column-width: 2em;
-    gap: 4em;
-    width: 100%;
-    
+
+    display: inline-flex;
+    text-align: center;
+    gap: 10vh;
 }
 
 .topinfo{
@@ -112,18 +116,19 @@ nav{
     padding-top: 2em;
 }
 
-#voce{
-    font-size: 3em;
-    text-transform: uppercase;
+.vocenavigazione{
+    width: max-content;
 }
 
 #voce{
+    font-size: 3em;
+    text-transform: uppercase;
     color: white;
     line-height: 75%;
     font-weight: 300;
     display: inline-block;
     transition: font-weight 0.3s ease;
-    text-align: center;
+    width: fit-content;
 }
 
 #voce::after {
@@ -178,7 +183,6 @@ footer{
     padding-bottom: 2.5vh;
     display: flex;
     flex-direction: column;
-    gap: 2vh;
 }
 
 .paragrafo{
