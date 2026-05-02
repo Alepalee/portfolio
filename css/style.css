@@ -4,12 +4,12 @@ html{
 
 body {
     font-family: "Funnel Display", sans-serif;;
-    background-color: #6FFF00;
+    background-color: #cccccc;
     font-style: normal;
     margin: 0;
 }
 
-.gruppohome{
+.hero{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 20vh 20vh 20vh;
@@ -30,13 +30,41 @@ header{
 
 a{
     text-decoration: none;
-    color: white;
+    color: #6FFF00;
 }
 
 .paragrafo a:hover{
     text-decoration: underline;
     text-underline-offset: 0.1em ;
-    text-decoration-thickness: 0.1em;
+    text-decoration-thickness: 0.13em;
+}
+
+.breadcrumble{
+    font-size: 2.5  vh;
+    font-weight: 700;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding-top: 20vh;
+}
+
+.linkhome{
+    font-size: 5vh;
+    font-weight: 700;
+}
+
+
+.breadcrumble a:hover{
+    text-decoration: underline;
+    text-underline-offset: 0.2em ;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: 0.15em;
+}
+
+.linkhome:hover{
+    text-decoration: underline;
+    text-underline-offset: 0.2em ;
+    text-decoration-skip-ink: none;
+    text-decoration-thickness: 0.15em;
 }
 
 h1, h3, h4, h5, h6, p, ul, ol {
@@ -52,11 +80,11 @@ h2{
 }
 
 b{
-    color: white;
+    color: #6FFF00;
 }
 
 u{
-    color: white;
+    color: #6FFF00;
 }
 
 img {
@@ -65,7 +93,7 @@ img {
 }
 
 .maintitle {
-    font-size: 15em;
+    font-size: 40vh;
     line-height: 75%;
     font-weight: 600;
     text-align: center;
@@ -84,7 +112,7 @@ img {
 .portfolio{
     font-family: "Funnel Display", sans-serif;
     font-size: 4em;
-    color: white;
+    color: #6FFF00;
     line-height: 75%;
     font-weight: 600;
     position: absolute;
@@ -112,7 +140,6 @@ nav{
     justify-content: center;
     font-size: 1.2em;
     gap: 10em;
-    user-select: none;
     padding-top: 2em;
 }
 
@@ -123,7 +150,7 @@ nav{
 #voce{
     font-size: 3em;
     text-transform: uppercase;
-    color: white;
+    color: #6FFF00;
     line-height: 75%;
     font-weight: 300;
     display: inline-block;
@@ -158,7 +185,7 @@ nav{
 
 .testoinfo{
     font-family: "Funnel display", "Funnel Sans", "Helvetica", sans-serif;
-    font-size: 3em;
+    font-size: 2.5em;
     font-weight: 700;
     line-height: 110%;
     grid-column-start: 1;
@@ -178,7 +205,7 @@ footer{
 
 .altrotesto{
     font-size: 2em;
-    grid-column-start: 2;
+    grid-column-start: 3;
     grid-column-end: 5;
     padding-bottom: 2.5vh;
     display: flex;
@@ -186,7 +213,8 @@ footer{
 }
 
 .paragrafo{
-    font-size: 0.9em;
+    font-size: 0.7em;
+    line-height: 110%;
 }
 
 .contenthome{
@@ -197,6 +225,7 @@ footer{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 10vh;
+    padding-top: 10vh;
 }
 
 #voceindice{
@@ -229,7 +258,7 @@ footer{
     color: black;
     padding-bottom: 0.1em;
     margin-bottom: 0.4em;
-    border-bottom: 0.08em solid white;
+    border-bottom: 0.08em solid #6FFF00;
     display: flex;
     text-align: left;
     width: fit-content;
@@ -243,7 +272,71 @@ footer{
 }
 
 sup{
-    color: white;
+    color: #6FFF00;
     font-size: 60%;
     line-height: 0;
+}
+
+.nomelavoro{
+    font-size: 7vh;
+    line-height: 150%;
+}
+
+#paginalavoro{
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#infoprogetto{
+    row-gap: 10vh;
+}
+
+.vociinfoprog h2{
+    color: #6FFF00;
+}
+
+.vociinfoprog h3{
+    font-size: 5vh;
+}
+
+#descrizioneprog{
+    grid-row-start: 2;
+    grid-column-end: 4;
+    grid-column-start: 1;
+
+    font-size: 4vh;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+}
+
+#heroprog{
+    display: flex;
+    justify-content: left;
+}
+
+.headerprog{
+    display: flex;
+    padding-top: 25vh;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 90vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.linktagprogetto{
+    color: black;
+}
+
+.linktagprogetto:hover{
+    text-decoration: underline;
+    text-underline-offset: 0.1em ;
+    text-decoration-thickness: 0.1em;
 }
