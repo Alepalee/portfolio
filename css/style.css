@@ -152,8 +152,9 @@ nav{
 }
 
 .testoinfo{
-    font-family: "Funnel Sans", "Funnel Display", "Helvetica", sans-serif;
+    font-family: "Funnel display", "Funnel Sans", "Helvetica", sans-serif;
     font-size: 3em;
+    font-weight: 700;
     line-height: 110%;
     grid-column-start: 1;
     grid-column-end: 5;
