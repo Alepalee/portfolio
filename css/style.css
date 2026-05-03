@@ -226,6 +226,7 @@ footer{
     grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 10vh;
     padding-top: 20vh;
+    padding-bottom: 10vh;
 }
 
 #voceindice{
@@ -344,6 +345,16 @@ padding: 0 3vw;
     height: 33vh;
 }
 
+.copertinahome{
+    position: absolute;
+    top: 60%;
+    left: 88%;
+    transform: translateX(-50%) translateY(-50%);
+    opacity: 90%;
+    height: 20vh;
+    filter: saturate(0%);
+}
+
 main{
     display: flex;
     flex-direction: column;
@@ -377,11 +388,19 @@ main{
     flex-direction: column;
     width: auto;
     gap: 5vh;
-    grid-row: 3;
+    grid-row: 4;
     grid-column-start: 1;
     grid-column-end: 5;
 }
 
 #infoagg h3{
     font-size: 2.7vh;
+}
+
+.contimg{
+    grid-column-start: 1;
+    grid-column-end: 5;
+    column-count: 3;
+    grid-row: 3;
+    width: fit-content;
 }
