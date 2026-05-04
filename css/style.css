@@ -2,9 +2,15 @@ html{
     scroll-behavior: smooth;
 }
 
+:root {
+    --primary-bg-color: black;
+    --primary-color: #6FFF00;
+    --main-text-color: white;
+  }
+
 body {
     font-family: "Funnel Display", sans-serif;
-    background-color: #000000;
+    background-color: var(--primary-bg-color);
     font-style: normal;
     margin: 0;
 }
@@ -30,7 +36,7 @@ header{
 
 a{
     text-decoration: none;
-    color: #6FFF00;
+    color: var(--primary-color);
 }
 
 .paragrafo a:hover{
@@ -70,21 +76,21 @@ a{
 h1, h3, h4, h5, h6, p, ul, ol {
     margin: 0;
     padding: 0;
-    color: white;
+    color: var(--main-text-color);
 }
 
 h2{
-    color: white;
+    color: var(--main-text-color);
     margin: 0;
     font-size: 1.3em;
 }
 
 b{
-    color: #6FFF00;
+    color: var(--primary-color);;
 }
 
 u{
-    color: #6FFF00;
+    color: var(--primary-color);;
 }
 
 img {
@@ -112,7 +118,7 @@ img {
 .portfolio{
     font-family: "Funnel Display", sans-serif;
     font-size: 4em;
-    color: #6FFF00;
+    color: var(--primary-color);;
     line-height: 75%;
     font-weight: 600;
     position: absolute;
@@ -150,7 +156,7 @@ nav{
 #voce{
     font-size: 3em;
     text-transform: uppercase;
-    color: #6FFF00;
+    color: var(--primary-color);;
     line-height: 75%;
     font-weight: 300;
     display: inline-block;
@@ -235,7 +241,7 @@ footer{
 }
 
 #voceindice{
-    color: white;
+    color: var(--main-text-color);
     line-height: 90%;
     font-weight: 300;
     display: inline-block;
@@ -256,10 +262,10 @@ footer{
 }
 
 .indicelavori{
-    color: white;
+    color: var(--main-text-color);
     padding-bottom: 0.1em;
     margin-bottom: 0.4em;
-    border-bottom: 0.08em solid #6FFF00;
+    border-bottom: 0.08em solid var(--primary-color);;
     display: flex;
     text-align: left;
     width: fit-content;
@@ -273,7 +279,7 @@ footer{
 }
 
 sup{
-    color: #6FFF00;
+    color: var(--primary-color);;
     font-size: 60%;
     line-height: 0;
 }
@@ -305,7 +311,7 @@ padding: 0 3vw;
 }
 
 .vociinfoprog h2{
-    color: #6FFF00;
+    color: var(--primary-color);;
 }
 
 .vociinfoprog h3{
@@ -365,7 +371,7 @@ main{
 }
 
 .linktagprogetto{
-    color: white;
+    color: var(--main-text-color);
 }
 
 .linktagprogetto:hover{
