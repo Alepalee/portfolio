@@ -3,9 +3,9 @@ html{
 }
 
 :root {
-    --primary-bg-color: #f6f7eb;
-    --primary-color: #00f0ec;
-    --main-text-color: #393e41;
+    --primary-bg-color: #323232;
+    --primary-color: #00FFAA;
+    --main-text-color: #f6f7eb; 
   }
 
 body {
