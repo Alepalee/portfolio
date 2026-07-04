@@ -92,7 +92,7 @@ img {
 }
 
 .maintitle {
-    font-size: 40vh;
+    font-size: 36vh;
     line-height: 75%;
     font-weight: 600;
     text-align: center;
@@ -210,7 +210,7 @@ footer{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 10vh;
-    padding-top: 10vh;
+    padding-top: 15vh;
     padding-bottom: 10vh;
     width: 100%;
 }
@@ -218,14 +218,12 @@ footer{
 #voceindice{
     font-size: 3em;
     text-transform: uppercase;
-}
-
-#voceindice{
     color: var(--main-text-color);
     line-height: 90%;
     font-weight: 300;
-    display: inline-block;
     transition: font-weight 0.3s ease;
+    width: 100%;
+    display: flex;
 }
 
 #voceindice::after {
@@ -241,14 +239,14 @@ footer{
     font-weight: 700;
 }
 
+.categoria{
+}
+
 .indicelavori{
     color: var(--main-text-color);
     padding-bottom: 0.1em;
     margin-bottom: 0.4em;
     border-bottom: 0.08em solid var(--primary-color);;
-    display: flex;
-    text-align: left;
-    width: fit-content;
 }
 
 #indice{
@@ -256,6 +254,7 @@ footer{
     flex-direction: column;
     gap: 1em;
     width: auto;
+    align-items: start;
 }
 
 sup{
