@@ -4,7 +4,7 @@ html{
 
 :root {
     --primary-bg-color: #000000;
-    --primary-color: #55ff00;
+    --primary-color: #66cc00;
     --main-text-color: #ffffff; 
   }
 
@@ -95,7 +95,7 @@ img {
     font-size: 36vh;
     line-height: 75%;
     font-weight: 600;
-    text-align: center;
+    text-align: left;
     user-select: none;
     text-transform: uppercase;
 }
@@ -104,19 +104,21 @@ img {
     height: 70vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     justify-content: center;
 }
 
 nav{
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 85%;
     transform: translateX(-50%) translateY(-50%);
 
-    display: inline-flex;
-    text-align: center;
-    gap: 10vh;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    align-items: end;
+    gap: 5vh;
 }
 
 .topinfo{
@@ -130,17 +132,24 @@ nav{
 
 .vocenavigazione{
     width: max-content;
+    outline: #ff0000;
+    outline-width: 12px;
 }
 
 #voce{
     font-size: 3em;
     text-transform: uppercase;
-    color: var(--primary-color);;
+    color: var(--main-text-color);;
     line-height: 75%;
     font-weight: 300;
     display: inline-block;
     transition: font-weight 0.3s ease;
     width: fit-content;
+    text-decoration: underline;
+    text-decoration-thickness: 100%;
+    text-decoration-color: var(--primary-color);
+    text-underline-offset: -80%;
+    text-decoration-skip-ink: none;
 }
 
 #voce::after {
@@ -281,6 +290,7 @@ sup{
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     z-index: 99;
+    flex-direction: row;
 }
 
 #infoprogetto{
@@ -334,7 +344,7 @@ max-width: 25vw;
 .copertinaprogetti{
     display: block;
     position: absolute;
-    top: 58%;
+    top: 59%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     opacity: 100%;
@@ -344,11 +354,11 @@ max-width: 25vw;
 
 .copertinachisono{
     position: absolute;
-    top: 60%;
-    left: 88%;
+    top: 35%;
+    left: 65%;
     transform: translateX(-50%) translateY(-50%);
     opacity: 90%;
-    height: 20vh;
+    height: 24vh;
     filter: saturate(0%);
 }
 
