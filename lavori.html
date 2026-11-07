@@ -3,13 +3,704 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; url=index.html#lavori">
+  <meta name="description" content="Elenco dei lavori di Alessio Palermo, editorial e graphic designer.">
   <title>Lavori — Alessio Palermo</title>
-  <script>
-    window.location.replace("index.html#lavori");
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color: #fff;
+      background: #000;
+      font-family: "Funnel Display", sans-serif;
+      font-synthesis: none;
+      text-rendering: geometricPrecision;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+      background: #000;
+    }
+
+    body { overflow-x: hidden; }
+    a { color: inherit; }
+
+    .landing-page {
+      width: 100%;
+      min-height: 100dvh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .landing-canvas {
+      position: relative;
+      width: 95%;
+      height: auto;
+      min-height: 1450px;
+      margin: 2.1dvh auto;
+    }
+
+    .landing-content {
+      position: absolute;
+      inset: 151px 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: auto;
+    }
+
+    /* Box superiori: Home / About me (header) e Lavori (titolo pagina) */
+    .works-mode-header {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: clamp(4.6rem, 7.04vw, 8rem);
+    }
+
+    .primary-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: clamp(4.6rem, 7.04vw, 8rem);
+    }
+
+    .works-mode-header a,
+    .primary-nav a {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 0.08em;
+      overflow: hidden;
+      color: #000;
+      background: #fff;
+      font-size: clamp(4.6rem, 7.04vw, 8rem);
+      font-weight: 600;
+      line-height: 1;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .works-mode-header a {
+      transform-origin: right center;
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .works-mode-header .works-home-link { transform-origin: left center; }
+
+    .primary-nav a { white-space: nowrap; }
+
+    .primary-nav .works-trigger {
+      justify-content: center;
+      width: 100%;
+    }
+
+    body.works-content-ready .works-mode-header a {
+      animation: box-reveal 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .works-mode-header a::before,
+    .primary-nav a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: #8cff00;
+      transform: scaleY(0);
+      transform-origin: bottom center;
+      transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .works-mode-header a:hover::before,
+    .works-mode-header a:focus-visible::before,
+    .primary-nav a:hover::before,
+    .primary-nav a:focus-visible::before {
+      transform: scaleY(1);
+    }
+
+    .works-mode-header a:hover,
+    .works-mode-header a:focus-visible,
+    .primary-nav a:hover,
+    .primary-nav a:focus-visible {
+      outline: none;
+    }
+
+    .works-mode-header .works-reveal-copy,
+    .primary-nav .works-reveal-copy {
+      position: relative;
+      z-index: 1;
+      color: #000;
+      mix-blend-mode: multiply;
+    }
+
+    .works-content {
+      display: block;
+      width: 100%;
+      margin-top: 147px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity 260ms ease,
+        transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    body.works-content-ready .works-content {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    body.works-content-exit .works-content {
+      opacity: 0;
+      transform: translateY(24px);
+      pointer-events: none;
+    }
+
+    .unified-project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .unified-project-item { padding-bottom: 19px; }
+
+    .unified-project-link {
+      position: relative;
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1000px) 70px minmax(0, 1fr);
+      align-items: center;
+      width: 100%;
+      min-height: 52px;
+      border-bottom: 3px solid #6c0;
+      font-size: clamp(1.75rem, 2.65vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.08;
+      text-decoration: none;
+      text-transform: uppercase;
+      isolation: isolate;
+      transition:
+        color 180ms ease,
+        background-color 180ms ease,
+        border-color 180ms ease;
+    }
+
+    .unified-project-number,
+    .unified-project-meta { color: #8cff00; }
+
+    .unified-project-name {
+      min-width: 0;
+      overflow: hidden;
+      color: #fff;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .unified-project-meta {
+      font-size: 72%;
+      line-height: 1;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .unified-project-link:hover .unified-project-name,
+    .unified-project-link:focus-visible .unified-project-name {
+      color: #000;
+    }
+
+    .unified-project-link:hover,
+    .unified-project-link:focus-visible {
+      color: #000;
+      background: #fff;
+      border-color: #000;
+    }
+
+    .unified-project-link:hover .unified-project-number,
+    .unified-project-link:hover .unified-project-meta,
+    .unified-project-link:focus-visible .unified-project-number,
+    .unified-project-link:focus-visible .unified-project-meta {
+      color: #000;
+    }
+
+    .unified-project-link:focus-visible {
+      outline: 2px solid #8cff00;
+      outline-offset: 5px;
+    }
+
+    .works-reveal-copy { display: inline; }
+
+    .works-reveal-word {
+      display: inline-flex;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+
+    .works-reveal-letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(110%);
+    }
+
+    body.works-content-ready .works-reveal-letter {
+      animation: unified-letter-in 260ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(var(--row-delay) + var(--works-letter-index) * 12ms);
+    }
+
+    body.works-content-exit .works-reveal-letter {
+      animation: unified-letter-out 180ms ease forwards;
+    }
+
+    .works-mode-header,
+    .primary-nav { --row-delay: 0ms; }
+    .unified-project-item:nth-child(1) { --row-delay: 0ms; }
+    .unified-project-item:nth-child(2) { --row-delay: 55ms; }
+    .unified-project-item:nth-child(3) { --row-delay: 110ms; }
+    .unified-project-item:nth-child(4) { --row-delay: 165ms; }
+    .unified-project-item:nth-child(5) { --row-delay: 220ms; }
+    .unified-project-item:nth-child(6) { --row-delay: 275ms; }
+    .unified-project-item:nth-child(7) { --row-delay: 330ms; }
+    .unified-project-item:nth-child(8) { --row-delay: 385ms; }
+    .unified-project-item:nth-child(9) { --row-delay: 440ms; }
+    .unified-project-item:nth-child(10) { --row-delay: 495ms; }
+    .unified-project-item:nth-child(11) { --row-delay: 550ms; }
+
+    .works-letter-0 { --works-letter-index: 0; }
+    .works-letter-1 { --works-letter-index: 1; }
+    .works-letter-2 { --works-letter-index: 2; }
+    .works-letter-3 { --works-letter-index: 3; }
+    .works-letter-4 { --works-letter-index: 4; }
+    .works-letter-5 { --works-letter-index: 5; }
+    .works-letter-6 { --works-letter-index: 6; }
+    .works-letter-7 { --works-letter-index: 7; }
+    .works-letter-8 { --works-letter-index: 8; }
+    .works-letter-9 { --works-letter-index: 9; }
+    .works-letter-10 { --works-letter-index: 10; }
+    .works-letter-11 { --works-letter-index: 11; }
+    .works-letter-12 { --works-letter-index: 12; }
+    .works-letter-13 { --works-letter-index: 13; }
+    .works-letter-14 { --works-letter-index: 14; }
+    .works-letter-15 { --works-letter-index: 15; }
+    .works-letter-16 { --works-letter-index: 16; }
+    .works-letter-17 { --works-letter-index: 17; }
+    .works-letter-18 { --works-letter-index: 18; }
+    .works-letter-19 { --works-letter-index: 19; }
+    .works-letter-20 { --works-letter-index: 20; }
+    .works-letter-21 { --works-letter-index: 21; }
+    .works-letter-22 { --works-letter-index: 22; }
+    .works-letter-23 { --works-letter-index: 23; }
+    .works-letter-24 { --works-letter-index: 24; }
+    .works-letter-25 { --works-letter-index: 25; }
+    .works-letter-26 { --works-letter-index: 26; }
+    .works-letter-27 { --works-letter-index: 27; }
+    .works-letter-28 { --works-letter-index: 28; }
+    .works-letter-29 { --works-letter-index: 29; }
+    .works-letter-30 { --works-letter-index: 30; }
+    .works-letter-31 { --works-letter-index: 31; }
+    .works-letter-32 { --works-letter-index: 32; }
+    .works-letter-33 { --works-letter-index: 33; }
+    .works-letter-34 { --works-letter-index: 34; }
+    .works-letter-35 { --works-letter-index: 35; }
+    .works-letter-36 { --works-letter-index: 36; }
+    .works-letter-37 { --works-letter-index: 37; }
+    .works-letter-38 { --works-letter-index: 38; }
+    .works-letter-39 { --works-letter-index: 39; }
+    .works-letter-40 { --works-letter-index: 40; }
+
+    @keyframes box-reveal {
+      from { opacity: 0; transform: scaleX(0); }
+      to { opacity: 1; transform: scaleX(1); }
+    }
+
+    @keyframes unified-letter-in {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes unified-letter-out {
+      to { opacity: 0; transform: translateY(110%); }
+    }
+
+    @keyframes interactive-letter-reveal {
+      from { opacity: 0; transform: translateY(110%); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    body.works-animation-complete .works-reveal-letter {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
+    body.works-animation-complete .works-mode-header a:hover .works-reveal-letter,
+    body.works-animation-complete .works-mode-header a:focus-visible .works-reveal-letter,
+    body.works-animation-complete .primary-nav a:hover .works-reveal-letter,
+    body.works-animation-complete .primary-nav a:focus-visible .works-reveal-letter,
+    body.works-animation-complete .unified-project-link:hover .works-reveal-letter,
+    body.works-animation-complete .unified-project-link:focus-visible .works-reveal-letter {
+      animation: interactive-letter-reveal 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-delay: calc(var(--works-letter-index) * 12ms);
+    }
+
+    footer {
+      position: absolute;
+      inset: auto 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 9%;
+      font-size: clamp(0.65rem, 0.704vw, 0.8rem);
+      font-weight: 400;
+      line-height: 0.75;
+      white-space: nowrap;
+    }
+
+    footer p { margin: 0; }
+
+    @media (max-width: 900px) {
+      .landing-canvas {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 32px);
+        height: auto;
+        min-height: 100dvh;
+        margin: 0 auto;
+        padding: 24px 0 18px;
+      }
+
+      .landing-content,
+      footer { position: static; }
+
+      .landing-content {
+        flex: 1;
+        height: auto;
+        /* +15px: spazio che occupava il blocco "Editorial designer" (nascosto) nella vecchia vista */
+        padding: calc(14vh + 15px) 0 6vh;
+      }
+
+      .works-mode-header {
+        height: auto;
+        gap: 16px;
+      }
+
+      .works-mode-header a {
+        height: auto;
+        font-size: clamp(2.5rem, 10vw, 5rem);
+      }
+
+      .primary-nav { height: auto; }
+
+      .primary-nav a {
+        height: auto;
+        font-size: clamp(2.5rem, 10vw, 5rem);
+      }
+
+      .works-content { margin-top: 96px; }
+
+      .unified-project-link {
+        grid-template-columns: 64px minmax(0, 1fr) 58px minmax(104px, max-content);
+        min-height: 46px;
+        border-bottom-width: 2px;
+        font-size: clamp(1.2rem, 3.7vw, 2rem);
+      }
+
+      footer {
+        flex: 0 0 auto;
+        height: auto;
+        padding-top: 2rem;
+        font-size: 0.68rem;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .works-mode-header a {
+        font-size: clamp(2rem, 10.5vw, 3.2rem);
+      }
+
+      .works-content { margin-top: 72px; }
+
+      .unified-project-link {
+        grid-template-areas:
+          "number name name"
+          "number year category";
+        grid-template-columns: 52px minmax(0, 1fr) max-content;
+        gap: 7px 10px;
+        padding-bottom: 8px;
+      }
+
+      .unified-project-number { grid-area: number; align-self: start; }
+      .unified-project-name {
+        grid-area: name;
+        white-space: normal;
+      }
+      .unified-project-year {
+        grid-area: year;
+        text-align: left;
+      }
+      .unified-project-category { grid-area: category; }
+    }
+
+    @media (max-width: 520px) {
+      .primary-nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+
+      .primary-nav a {
+        font-size: clamp(2.75rem, 15.5vw, 4.75rem);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .works-content {
+        transition: none;
+      }
+
+      .works-mode-header a,
+      body.works-content-ready .works-mode-header a {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+
+      .works-reveal-letter,
+      body.works-content-ready .works-reveal-letter,
+      body.works-content-exit .works-reveal-letter {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+
+      body.works-animation-complete .works-mode-header a:hover .works-reveal-letter,
+      body.works-animation-complete .works-mode-header a:focus-visible .works-reveal-letter,
+      body.works-animation-complete .primary-nav a:hover .works-reveal-letter,
+      body.works-animation-complete .primary-nav a:focus-visible .works-reveal-letter,
+      body.works-animation-complete .unified-project-link:hover .works-reveal-letter,
+      body.works-animation-complete .unified-project-link:focus-visible .works-reveal-letter {
+        animation: none;
+      }
+    }
+  </style>
+  <noscript>
+    <style>
+      .works-mode-header a { opacity: 1; transform: none; }
+      .works-content { opacity: 1; transform: none; pointer-events: auto; }
+    </style>
+  </noscript>
 </head>
 <body>
-  <p><a href="index.html#lavori">Vai all’elenco lavori</a></p>
+  <main class="landing-page">
+    <div class="landing-canvas">
+      <nav class="works-mode-header" aria-label="Navigazione lavori">
+        <a class="works-home-link" href="index.html">Home</a>
+        <a href="chisono.html">About me</a>
+      </nav>
+
+      <section class="landing-content">
+        <nav class="primary-nav" aria-label="Navigazione principale">
+          <a class="works-trigger" href="lavori.html" aria-current="page">Lavori</a>
+        </nav>
+
+        <section class="works-content" aria-label="Elenco lavori">
+          <ol class="unified-project-list">
+            <li class="unified-project-item">
+              <a class="unified-project-link" href="tesi.html">
+                <span class="unified-project-number">[1]</span>
+                <span class="unified-project-name">Il mon(d)o a larghezza fissa</span>
+                <span class="unified-project-meta unified-project-year">2025</span>
+                <span class="unified-project-meta unified-project-category">[Tesi]</span>
+              </a>
+            </li>
+            <li class="unified-project-item">
+              <a class="unified-project-link" href="tesi2.html">
+                <span class="unified-project-number">[2]</span>
+                <span class="unified-project-name">Il mon(d)o a larghezza fissa&nbsp; V.2</span>
+                <span class="unified-project-meta unified-project-year">2026</span>
+                <span class="unified-project-meta unified-project-category">[Editorial]</span>
+              </a>
+            </li>
+            <li class="unified-project-item">
+              <a class="unified-project-link" href="sellerio.html">
+                <span class="unified-project-number">[3]</span>
+                <span class="unified-project-name">Infografica Sellerio</span>
+                <span class="unified-project-meta unified-project-year">2025</span>
+                <span class="unified-project-meta unified-project-category">[Editorial]</span>
+              </a>
+            </li>
+            <li class="unified-project-item">
+              <a class="unified-project-link" href="personale.html">
+                <span class="unified-project-number">[4]</span>
+                <span class="unified-project-name">Infografica personale</span>
+                <span class="unified-project-meta unified-project-year">2025</span>
+                <span class="unified-project-meta unified-project-category">[Editorial]</span>
+              </a>
+            </li>
+            <li class="unified-project-item">
+              <a class="unified-project-link" href="POV.html">
+                <span class="unified-project-number">[5]</span>
+                <span class="unified-project-name">POV – Points of View</span>
+                <span class="unified-project-meta unified-project-year">2026</span>
+                <span class="unified-project-meta unified-project-category">[Branding]</span>
+              </a>
+            </li>
+            <li class="unified-project-item">
+              <a class="unified-project-link" href="museocostume.html">
+                <span class="unified-project-number">[6]</span>
+                <span class="unified-project-name">Museo del costume</span>
+                <span class="unified-project-meta unified-project-year">2024</span>
+                <span class="unified-project-meta unified-project-category">[Branding]</span>
+              </a>
+            </li>
+            <li class="unified-project-item">
+              <a class="unified-project-link" href="REBU.html">
+                <span class="unified-project-number">[7]</span>
+                <span class="unified-project-name">REBU – Rete Eventi Barocco Unesco</span>
+                <span class="unified-project-meta unified-project-year">2026</span>
+                <span class="unified-project-meta unified-project-category">[Branding]</span>
+              </a>
+            </li>
+            <li class="unified-project-item">
+              <a class="unified-project-link" href="monogramma.html">
+                <span class="unified-project-number">[8]</span>
+                <span class="unified-project-name">Monogramma personale</span>
+                <span class="unified-project-meta unified-project-year">2023</span>
+                <span class="unified-project-meta unified-project-category">[Branding]</span>
+              </a>
+            </li>
+            <li class="unified-project-item">
+              <a class="unified-project-link" href="pintify.html">
+                <span class="unified-project-number">[9]</span>
+                <span class="unified-project-name">Pintify</span>
+                <span class="unified-project-meta unified-project-year">2024</span>
+                <span class="unified-project-meta unified-project-category">[Web design]</span>
+              </a>
+            </li>
+            <li class="unified-project-item">
+              <a class="unified-project-link" href="ticketone.html">
+                <span class="unified-project-number">[10]</span>
+                <span class="unified-project-name">Ticketone app</span>
+                <span class="unified-project-meta unified-project-year">2024</span>
+                <span class="unified-project-meta unified-project-category">[UX/UI]</span>
+              </a>
+            </li>
+            <li class="unified-project-item">
+              <a class="unified-project-link" href="teatri.html">
+                <span class="unified-project-number">[11]</span>
+                <span class="unified-project-name">Comunicazione teatrale</span>
+                <span class="unified-project-meta unified-project-year">2026</span>
+                <span class="unified-project-meta unified-project-category">[Poster]</span>
+              </a>
+            </li>
+          </ol>
+        </section>
+      </section>
+
+      <footer>
+        <p>Copyright 2026 — ©Alessio Palermo</p>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    // Stesso split in lettere usato in precedenza nella vista "Lavori" di index.html,
+    // esteso anche al box "Lavori" oltre a Home / About me e alle righe dell'elenco.
+    document
+      .querySelectorAll(
+        ".works-mode-header a, .primary-nav a, .unified-project-link span",
+      )
+      .forEach((element) => {
+        const text = element.textContent.trim();
+        const copy = document.createElement("span");
+        copy.className = "works-reveal-copy";
+        copy.setAttribute("aria-hidden", "true");
+        let letterIndex = 0;
+
+        text.split(/\s+/).forEach((word, wordIndex, words) => {
+          const wordElement = document.createElement("span");
+          wordElement.className = "works-reveal-word";
+
+          [...word].forEach((character) => {
+            const letter = document.createElement("span");
+            letter.className = `works-reveal-letter works-letter-${letterIndex}`;
+            letter.textContent = character;
+            wordElement.appendChild(letter);
+            letterIndex += 1;
+          });
+
+          copy.appendChild(wordElement);
+          if (wordIndex < words.length - 1) {
+            copy.appendChild(document.createTextNode(" "));
+          }
+        });
+
+        element.textContent = "";
+        element.setAttribute("aria-label", text);
+        element.appendChild(copy);
+      });
+
+    const body = document.body;
+    const homeLink = document.querySelector(".works-home-link");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let worksAnimationTimer = null;
+
+    const startWorksAnimation = () => {
+      body.classList.add("works-content-ready");
+      worksAnimationTimer = window.setTimeout(() => {
+        body.classList.add("works-animation-complete");
+      }, 1400);
+    };
+
+    // L'animazione parte appena il font è pronto (con un limite massimo),
+    // così non blocca né rallenta il caricamento della pagina.
+    const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+    Promise.race([
+      fontsReady,
+      new Promise((resolve) => window.setTimeout(resolve, 600)),
+    ]).then(() => window.requestAnimationFrame(startWorksAnimation));
+
+    // Uscita verso Home con la stessa animazione di prima, poi navigazione normale.
+    homeLink.addEventListener("click", (event) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        reducedMotion.matches
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      window.clearTimeout(worksAnimationTimer);
+      body.classList.remove("works-animation-complete");
+      body.classList.add("works-content-exit");
+      window.setTimeout(() => {
+        window.location.href = homeLink.href;
+      }, 280);
+    });
+
+    // Tornando indietro dalla cache del browser la pagina riappare già completa.
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) {
+        window.clearTimeout(worksAnimationTimer);
+        body.classList.remove("works-content-exit");
+        body.classList.add("works-content-ready", "works-animation-complete");
+      }
+    });
+  </script>
 </body>
 </html>
