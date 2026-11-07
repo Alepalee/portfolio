@@ -17,7 +17,6 @@
     :root {
       color: #fff;
       background: #000;
-      --hover-green: #2f7600;
       font-family: "Funnel Display", sans-serif;
       font-synthesis: none;
       text-rendering: geometricPrecision;
@@ -33,7 +32,29 @@
     }
 
     body { overflow-x: hidden; }
+    body.is-loading { overflow: hidden; }
     a { color: inherit; }
+
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      color: #8cff00;
+      background: #000;
+      font-size: clamp(4rem, 8vw, 9rem);
+      font-weight: 600;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 450ms ease, visibility 450ms ease;
+    }
+
+    .page-loader.is-complete {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
     .landing-page {
       width: 100%;
@@ -102,8 +123,10 @@
       align-items: center;
       height: 100%;
       padding: 0 0.08em;
-      color: #000;
-      background: #fff;
+      overflow: hidden;
+      border: clamp(2px, 0.22vw, 4px) solid #fff;
+      color: #fff;
+      background: #000;
       font-size: clamp(4.6rem, 7.04vw, 8rem);
       font-weight: 600;
       line-height: 1;
@@ -111,17 +134,38 @@
       text-transform: uppercase;
       white-space: nowrap;
       transform-origin: left center;
-      animation: box-reveal 300ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
-      transition: color 160ms ease;
+      opacity: 0;
+      transform: scaleX(0);
+      transition: color 0ms linear;
     }
 
     .primary-nav a:last-child { transform-origin: right center; }
 
+    body.home-ready .primary-nav a {
+      animation: box-reveal 300ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+    }
+
+    .primary-nav a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: #fff;
+      transform: scaleY(0);
+      transform-origin: bottom center;
+      transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .primary-nav a:hover::before,
+    .primary-nav a:focus-visible::before {
+      transform: scaleY(1);
+    }
+
     .primary-nav a:hover,
     .primary-nav a:focus-visible {
-      color: var(--hover-green);
-      background: #fff;
+      color: #000;
       outline: none;
+      transition-delay: 320ms;
     }
 
     .introduction { width: 100%; }
@@ -214,6 +258,9 @@
       display: inline-block;
       opacity: 0;
       transform: translateY(110%);
+    }
+
+    body.home-ready .letter {
       animation: letter-reveal 340ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
       animation-delay: calc(var(--sequence-delay) + var(--letter-index) * 55ms);
     }
@@ -222,12 +269,6 @@
       opacity: 1;
       transform: none;
       animation: none;
-    }
-
-    body.motion-loaded .primary-nav a:hover .letter,
-    body.motion-loaded .primary-nav a:focus-visible .letter {
-      animation: letter-hover-reveal 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
-      animation-delay: calc(var(--letter-index) * 22ms);
     }
 
     .letter-space { width: 0.28em; }
@@ -259,11 +300,6 @@
     }
 
     @keyframes letter-reveal {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes letter-hover-reveal {
-      from { opacity: 0; transform: translateY(110%); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -372,8 +408,10 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .primary-nav a {
+      .primary-nav a,
+      body.home-ready .primary-nav a {
         animation: none;
+        opacity: 1;
         transform: none;
         transition: none;
       }
@@ -384,17 +422,16 @@
         transform: none;
       }
 
-      body.motion-loaded .primary-nav a:hover .letter,
-      body.motion-loaded .primary-nav a:focus-visible .letter {
-        animation: none;
-      }
-
       .portrait-image,
       .portrait-slot::after { transition: none; }
     }
   </style>
 </head>
-<body>
+<body class="is-loading">
+  <div class="page-loader" role="status" aria-live="polite" aria-label="Caricamento">
+    <span id="loader-progress">0</span>
+  </div>
+
   <main class="landing-page">
     <div class="landing-canvas">
       <div class="designer-meta">
@@ -450,9 +487,61 @@
       element.appendChild(copy);
     });
 
-    window.setTimeout(() => {
-      document.body.classList.add("motion-loaded");
-    }, 2100);
+    const loader = document.querySelector(".page-loader");
+    const loaderProgress = document.querySelector("#loader-progress");
+    const loaderDuration = 7000;
+    const loadingSteps = [
+      { time: 0, value: 0 },
+      { time: 0.08, value: 6 },
+      { time: 0.18, value: 23 },
+      { time: 0.29, value: 42 },
+      { time: 0.38, value: 42 },
+      { time: 0.53, value: 68 },
+      { time: 0.62, value: 74 },
+      { time: 0.7, value: 74 },
+      { time: 0.82, value: 91 },
+      { time: 0.9, value: 93 },
+      { time: 0.95, value: 93 },
+      { time: 1, value: 100 },
+    ];
+    const loaderStart = performance.now();
+
+    const getLoadingValue = (progress) => {
+      const nextIndex = loadingSteps.findIndex((step) => step.time >= progress);
+      const endIndex = nextIndex < 1 ? 1 : nextIndex;
+      const start = loadingSteps[endIndex - 1];
+      const end = loadingSteps[endIndex];
+      const segment = (progress - start.time) / (end.time - start.time);
+      const easedSegment = 1 - Math.pow(1 - Math.max(0, Math.min(1, segment)), 2);
+      return Math.floor(start.value + (end.value - start.value) * easedSegment);
+    };
+
+    const completeLoading = () => {
+      loaderProgress.textContent = "100";
+      loader.classList.add("is-complete");
+
+      window.setTimeout(() => {
+        document.body.classList.remove("is-loading");
+        document.body.classList.add("home-ready");
+
+        window.setTimeout(() => {
+          document.body.classList.add("motion-loaded");
+        }, 2100);
+      }, 450);
+    };
+
+    const updateLoading = () => {
+      const progress = Math.min((performance.now() - loaderStart) / loaderDuration, 1);
+      loaderProgress.textContent = String(getLoadingValue(progress));
+
+      if (progress >= 1) {
+        window.clearInterval(loaderTimer);
+        completeLoading();
+      }
+    };
+
+    const loaderTimer = window.setInterval(updateLoading, 50);
+    updateLoading();
   </script>
 </body>
 </html>
