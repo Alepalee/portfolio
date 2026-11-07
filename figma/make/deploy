@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+pnpm run build
+build_dir="dist"
+
+[[ -d "$build_dir" ]] || {
+  echo "Expected build output at $build_dir" >&2
+  exit 1
+}
+
+figma make deploy --build-dir "$build_dir"

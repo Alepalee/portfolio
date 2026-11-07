@@ -1,0 +1,335 @@
+@font-face {
+  font-family: "Funnel Display:Regular";
+  src: url("https://static.figma.com/font/FunnelDisplay_wght__1")
+    format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Funnel Display:SemiBold";
+  src: url("https://static.figma.com/font/FunnelDisplay_wght__1")
+    format("woff2");
+  font-style: normal;
+  font-weight: 600;
+}
+
+:root {
+  color: #fff;
+  background: #000;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+  background: #000;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+.landing-page {
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #000;
+}
+
+.landing-canvas {
+  position: relative;
+  width: 95%;
+  height: 95.8dvh;
+  min-height: 690px;
+  margin: 2.1dvh auto;
+}
+
+.designer-meta {
+  position: absolute;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(3rem, 10.55vw, 12rem);
+  height: 6.63%;
+  font-family: "Funnel Display:Regular", sans-serif;
+  font-size: clamp(0.85rem, 1.055vw, 1.2rem);
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.designer-meta p {
+  margin: 0;
+}
+
+.graphic-role {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.graphic-role sup {
+  color: #6c0;
+  font-family: "Funnel Display:Regular", sans-serif;
+  font-size: 60%;
+  font-weight: 400;
+  line-height: 0;
+}
+
+.landing-content {
+  position: absolute;
+  inset: 16.09% 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 65.46%;
+}
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: clamp(4.6rem, 7.04vw, 8rem);
+}
+
+.primary-nav a {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding: 0;
+  color: #000;
+  background: #fff;
+  font-family: "Funnel Display:SemiBold", sans-serif;
+  font-size: clamp(4.6rem, 7.04vw, 8rem);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+}
+
+.primary-nav a:hover,
+.primary-nav a:focus-visible {
+  color: #8cff00;
+  background: #111;
+  outline: none;
+}
+
+.introduction {
+  width: 100%;
+}
+
+.introduction h1 {
+  display: flex;
+  flex-direction: column;
+  gap: 31px;
+  margin: 0;
+  color: #fff;
+  font-family: "Funnel Display:SemiBold", sans-serif;
+  font-size: clamp(4.6rem, 7.04vw, 8rem);
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.intro-line {
+  display: grid;
+  grid-template-columns: 60.65fr 39.35fr;
+  width: 100%;
+}
+
+.intro-line > span:last-child {
+  text-align: right;
+}
+
+.name-line {
+  position: relative;
+  display: block;
+  width: 100%;
+  color: #8cff00;
+  text-align: right;
+}
+
+.portrait-slot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(4.6rem, 7.04vw, 8rem);
+  height: clamp(4.6rem, 7.04vw, 8rem);
+}
+
+.portrait-fallback,
+.portrait-effect {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.portrait-fallback {
+  object-fit: cover;
+}
+
+.portrait-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
+}
+
+.portrait-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.landing-canvas footer {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 9%;
+  font-family: "Funnel Display:Regular", sans-serif;
+  font-size: clamp(0.65rem, 0.704vw, 0.8rem);
+  font-weight: 400;
+  line-height: 0.75;
+  white-space: nowrap;
+}
+
+.landing-canvas footer p {
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .landing-canvas {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 32px);
+    height: auto;
+    min-height: 100dvh;
+    margin: 0 auto;
+    padding: 24px 0 18px;
+  }
+
+  .designer-meta,
+  .landing-content,
+  .landing-canvas footer {
+    position: static;
+  }
+
+  .designer-meta {
+    justify-content: space-between;
+    gap: 1rem;
+    height: auto;
+    font-size: 0.78rem;
+  }
+
+  .designer-meta > p:nth-child(2) {
+    display: none;
+  }
+
+  .landing-content {
+    flex: 1;
+    height: auto;
+    padding: 14vh 0 10vh;
+  }
+
+  .primary-nav {
+    height: auto;
+  }
+
+  .primary-nav a {
+    height: auto;
+    font-size: clamp(2.5rem, 10vw, 5rem);
+  }
+
+  .introduction {
+    margin-top: auto;
+    padding-top: 24vh;
+  }
+
+  .introduction h1 {
+    gap: 0.22em;
+    font-size: clamp(2.7rem, 11vw, 5.5rem);
+  }
+
+  .intro-line {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .intro-line > span:last-child {
+    text-align: right;
+  }
+
+  .name-line {
+    padding-left: 0.95em;
+    text-wrap: balance;
+  }
+
+  .portrait-slot {
+    width: 0.85em;
+    height: 0.85em;
+  }
+
+  .landing-canvas footer {
+    flex: 0 0 auto;
+    height: auto;
+    padding-top: 2rem;
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .designer-meta {
+    align-items: flex-start;
+  }
+
+  .graphic-role {
+    text-align: right;
+  }
+
+  .primary-nav {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .primary-nav a {
+    font-size: clamp(2.75rem, 15.5vw, 4.75rem);
+  }
+
+  .introduction {
+    padding-top: 19vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary-nav a {
+    transition: none;
+  }
+}
