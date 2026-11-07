@@ -78,7 +78,8 @@ a {
 
 .graphic-role {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
 }
 
 .graphic-role sup {
@@ -168,9 +169,9 @@ a {
 }
 
 .portrait-effect {
-  position: absolute !important;
-  top: -0.19px;
-  left: -0.02px;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: clamp(4.6rem, 7.04vw, 8rem);
   height: clamp(4.6rem, 7.04vw, 8rem);
 }
