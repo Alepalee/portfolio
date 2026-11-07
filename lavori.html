@@ -38,26 +38,25 @@
 
     .landing-canvas {
       position: relative;
+      display: flex;
+      flex-direction: column;
       width: 95%;
       height: auto;
-      min-height: 1450px;
+      min-height: calc(100dvh - 4.2dvh);
       margin: 2.1dvh auto;
     }
 
     .landing-content {
-      position: absolute;
-      inset: 151px 0 auto;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
+      width: 100%;
       height: auto;
+      margin-top: clamp(2rem, 4.9vw, 4.5rem);
     }
 
     /* Box superiori: Home / About me (header) e Lavori (titolo pagina) */
     .works-mode-header {
-      position: absolute;
-      inset: 0 0 auto;
-      z-index: 5;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -65,16 +64,7 @@
       height: clamp(4.6rem, 7.04vw, 8rem);
     }
 
-    .primary-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      height: clamp(4.6rem, 7.04vw, 8rem);
-    }
-
-    .works-mode-header a,
-    .primary-nav a {
+    .works-mode-header a {
       position: relative;
       display: inline-flex;
       align-items: center;
@@ -88,10 +78,7 @@
       line-height: 1;
       text-decoration: none;
       text-transform: uppercase;
-    }
-
-    .works-mode-header a,
-    .primary-nav a {
+      white-space: nowrap;
       transform-origin: right center;
       opacity: 0;
       transform: scaleX(0);
@@ -99,21 +86,12 @@
 
     .works-mode-header .works-home-link { transform-origin: left center; }
 
-    .primary-nav a { white-space: nowrap; }
-
-    .primary-nav .works-trigger {
-      justify-content: center;
-      width: 100%;
-    }
-
     /* Stessa apertura dei box di index.html (box-reveal 300ms, ritardo 80ms) */
-    body.works-content-ready .works-mode-header a,
-    body.works-content-ready .primary-nav a {
+    body.works-content-ready .works-mode-header a {
       animation: box-reveal 300ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
     }
 
-    .works-mode-header a::before,
-    .primary-nav a::before {
+    .works-mode-header a::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -125,31 +103,45 @@
     }
 
     .works-mode-header a:hover::before,
-    .works-mode-header a:focus-visible::before,
-    .primary-nav a:hover::before,
-    .primary-nav a:focus-visible::before {
+    .works-mode-header a:focus-visible::before {
       transform: scaleY(1);
     }
 
     .works-mode-header a:hover,
-    .works-mode-header a:focus-visible,
-    .primary-nav a:hover,
-    .primary-nav a:focus-visible {
+    .works-mode-header a:focus-visible {
       outline: none;
     }
 
-    .works-mode-header .works-reveal-copy,
-    .primary-nav .works-reveal-copy {
+    .works-mode-header .works-reveal-copy {
       position: relative;
       z-index: 1;
       color: #000;
       mix-blend-mode: multiply;
     }
 
+    .works-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      font-size: clamp(4.5rem, 14.75vw, 15rem);
+      font-weight: 600;
+      line-height: 0.95;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+      user-select: none;
+      --row-delay: 390ms;
+      --letter-step: 24ms;
+    }
+
     .works-content {
       display: block;
       width: 100%;
-      margin-top: 147px;
+      margin-top: clamp(2rem, 4.2vw, 3.5rem);
       opacity: 0;
       transform: translateY(24px);
       transition:
@@ -269,9 +261,9 @@
       animation: unified-letter-out 180ms ease forwards;
     }
 
-    /* Box superiori: le lettere partono a box aperto, 390ms + 24ms a lettera, come i box di index.html */
+    /* Box superiori e titolo: le lettere partono a 390ms + 24ms a lettera, come i box di index.html */
     .works-mode-header,
-    .primary-nav {
+    .works-title {
       --row-delay: 390ms;
       --letter-step: 24ms;
     }
@@ -357,8 +349,6 @@
 
     body.works-animation-complete .works-mode-header a:hover .works-reveal-letter,
     body.works-animation-complete .works-mode-header a:focus-visible .works-reveal-letter,
-    body.works-animation-complete .primary-nav a:hover .works-reveal-letter,
-    body.works-animation-complete .primary-nav a:focus-visible .works-reveal-letter,
     body.works-animation-complete .unified-project-link:hover .works-reveal-letter,
     body.works-animation-complete .unified-project-link:focus-visible .works-reveal-letter {
       animation: interactive-letter-reveal 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -366,12 +356,13 @@
     }
 
     footer {
-      position: absolute;
-      inset: auto 0 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 9%;
+      width: 100%;
+      height: auto;
+      margin-top: auto;
+      padding: clamp(2rem, 4.5vw, 3.5rem) 0 1rem;
       font-size: clamp(0.65rem, 0.704vw, 0.8rem);
       font-weight: 400;
       line-height: 0.75;
@@ -382,23 +373,15 @@
 
     @media (max-width: 900px) {
       .landing-canvas {
-        display: flex;
-        flex-direction: column;
         width: calc(100% - 32px);
-        height: auto;
         min-height: 100dvh;
         margin: 0 auto;
         padding: 24px 0 18px;
       }
 
-      .landing-content,
-      footer { position: static; }
-
       .landing-content {
         flex: 1;
-        height: auto;
-        /* +15px: spazio che occupava il blocco "Editorial designer" (nascosto) nella vecchia vista */
-        padding: calc(14vh + 15px) 0 6vh;
+        margin-top: 2rem;
       }
 
       .works-mode-header {
@@ -411,14 +394,11 @@
         font-size: clamp(2.5rem, 10vw, 5rem);
       }
 
-      .primary-nav { height: auto; }
-
-      .primary-nav a {
-        height: auto;
-        font-size: clamp(2.5rem, 10vw, 5rem);
+      .works-title {
+        font-size: clamp(3rem, 15vw, 6.5rem);
       }
 
-      .works-content { margin-top: 96px; }
+      .works-content { margin-top: 2rem; }
 
       .unified-project-link {
         grid-template-columns: 64px minmax(0, 1fr) 58px minmax(104px, max-content);
@@ -429,7 +409,6 @@
 
       footer {
         flex: 0 0 auto;
-        height: auto;
         padding-top: 2rem;
         font-size: 0.68rem;
       }
@@ -440,7 +419,11 @@
         font-size: clamp(2rem, 10.5vw, 3.2rem);
       }
 
-      .works-content { margin-top: 72px; }
+      .works-title {
+        font-size: clamp(2.75rem, 16vw, 4.5rem);
+      }
+
+      .works-content { margin-top: 1.5rem; }
 
       .unified-project-link {
         grid-template-areas:
@@ -463,27 +446,13 @@
       .unified-project-category { grid-area: category; }
     }
 
-    @media (max-width: 520px) {
-      .primary-nav {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 0.35rem;
-      }
-
-      .primary-nav a {
-        font-size: clamp(2.75rem, 15.5vw, 4.75rem);
-      }
-    }
-
     @media (prefers-reduced-motion: reduce) {
       .works-content {
         transition: none;
       }
 
       .works-mode-header a,
-      .primary-nav a,
-      body.works-content-ready .works-mode-header a,
-      body.works-content-ready .primary-nav a {
+      body.works-content-ready .works-mode-header a {
         opacity: 1;
         transform: none;
         animation: none;
@@ -499,8 +468,6 @@
 
       body.works-animation-complete .works-mode-header a:hover .works-reveal-letter,
       body.works-animation-complete .works-mode-header a:focus-visible .works-reveal-letter,
-      body.works-animation-complete .primary-nav a:hover .works-reveal-letter,
-      body.works-animation-complete .primary-nav a:focus-visible .works-reveal-letter,
       body.works-animation-complete .unified-project-link:hover .works-reveal-letter,
       body.works-animation-complete .unified-project-link:focus-visible .works-reveal-letter {
         animation: none;
@@ -509,8 +476,8 @@
   </style>
   <noscript>
     <style>
-      .works-mode-header a,
-      .primary-nav a { opacity: 1; transform: none; }
+      .works-mode-header a { opacity: 1; transform: none; }
+      .works-title .works-reveal-letter { opacity: 1; transform: none; }
       .works-content { opacity: 1; transform: none; pointer-events: auto; }
     </style>
   </noscript>
@@ -524,9 +491,7 @@
       </nav>
 
       <section class="landing-content">
-        <nav class="primary-nav" aria-label="Navigazione principale">
-          <a class="works-trigger" href="lavori.html" aria-current="page">Lavori</a>
-        </nav>
+        <h1 class="works-title">Lavori</h1>
 
         <section class="works-content" aria-label="Elenco lavori">
           <ol class="unified-project-list">
@@ -630,10 +595,10 @@
 
   <script>
     // Stesso split in lettere usato in precedenza nella vista "Lavori" di index.html,
-    // esteso anche al box "Lavori" oltre a Home / About me e alle righe dell'elenco.
+    // esteso anche al titolo "Lavori" oltre a Home / About me e alle righe dell'elenco.
     document
       .querySelectorAll(
-        ".works-mode-header a, .primary-nav a, .unified-project-link span",
+        ".works-mode-header a, .works-title, .unified-project-link span",
       )
       .forEach((element) => {
         const text = element.textContent.trim();
