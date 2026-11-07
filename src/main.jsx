@@ -62,19 +62,27 @@ function App() {
                 <span data-node-id="1:179">Io sono</span>
               </span>
               <span className="name-line" data-node-id="1:180">
-                <ShaderEffect
-                  className="portrait-effect"
-                  shaders={[portraitShader]}
-                  data-node-id="1:182"
-                >
-                  <span className="portrait-frame">
-                    <img
-                      src="/assets/322f5.png"
-                      alt=""
-                      aria-hidden="true"
-                    />
-                  </span>
-                </ShaderEffect>
+                <span className="portrait-slot">
+                  <img
+                    className="portrait-fallback"
+                    src="/assets/322f5.png"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                  <ShaderEffect
+                    className="portrait-effect"
+                    shaders={[portraitShader]}
+                    data-node-id="1:182"
+                  >
+                    <span className="portrait-frame">
+                      <img
+                        src="/assets/322f5.png"
+                        alt=""
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </ShaderEffect>
+                </span>
                 <span data-node-id="1:181">Alessio Palermo</span>
               </span>
             </h1>

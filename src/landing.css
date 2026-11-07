@@ -168,12 +168,24 @@ a {
   text-align: right;
 }
 
-.portrait-effect {
+.portrait-slot {
   position: absolute;
   top: 0;
   left: 0;
   width: clamp(4.6rem, 7.04vw, 8rem);
   height: clamp(4.6rem, 7.04vw, 8rem);
+}
+
+.portrait-fallback,
+.portrait-effect {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.portrait-fallback {
+  object-fit: cover;
 }
 
 .portrait-frame {
@@ -279,7 +291,7 @@ a {
     text-wrap: balance;
   }
 
-  .portrait-effect {
+  .portrait-slot {
     width: 0.85em;
     height: 0.85em;
   }
