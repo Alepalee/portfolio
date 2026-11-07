@@ -22,6 +22,15 @@
       text-rendering: geometricPrecision;
     }
 
+    @view-transition {
+      navigation: auto;
+    }
+
+    ::view-transition-group(lavori-panel) {
+      animation-duration: 650ms;
+      animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
     * { box-sizing: border-box; }
 
     html, body {
@@ -138,6 +147,10 @@
     }
 
     .primary-nav a:last-child { transform-origin: right center; }
+
+    .primary-nav a[href="lavori.html"] {
+      view-transition-name: lavori-panel;
+    }
 
     body.home-ready .primary-nav a {
       animation: box-reveal 300ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
