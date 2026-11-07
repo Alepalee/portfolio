@@ -92,15 +92,45 @@
     }
 
     .works-header a {
+      position: relative;
       height: 100%;
       padding: 0 0.08em;
-      transition: color 160ms ease, background-color 160ms ease;
+      transform-origin: left center;
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .works-header a:last-child { transform-origin: right center; }
+
+    body.works-ready .works-header a {
+      animation: box-reveal 300ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+    }
+
+    .works-header a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: #8cff00;
+      transform: scaleY(0);
+      transform-origin: bottom center;
+      transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .works-header .reveal-copy {
+      position: relative;
+      z-index: 1;
+      color: #000;
+      mix-blend-mode: multiply;
+    }
+
+    .works-header a:hover::before,
+    .works-header a:focus-visible::before {
+      transform: scaleY(1);
     }
 
     .works-header a:hover,
     .works-header a:focus-visible {
-      color: #000;
-      background: #8cff00;
       outline: none;
     }
 
@@ -110,6 +140,90 @@
       height: clamp(74px, 7.04vw, 106px);
       margin: 45px 0 0;
       view-transition-name: lavori-panel;
+    }
+
+    .reveal-copy { display: inline; }
+
+    .reveal-word {
+      display: inline-flex;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+
+    .reveal-letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(110%);
+    }
+
+    body.works-ready .reveal-letter {
+      animation: works-letter-reveal 260ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(var(--reveal-delay) + var(--letter-index) * 14ms);
+    }
+
+    .works-header { --reveal-delay: 190ms; }
+    .project-item:nth-child(1) { --reveal-delay: 300ms; }
+    .project-item:nth-child(2) { --reveal-delay: 370ms; }
+    .project-item:nth-child(3) { --reveal-delay: 440ms; }
+    .project-item:nth-child(4) { --reveal-delay: 510ms; }
+    .project-item:nth-child(5) { --reveal-delay: 580ms; }
+    .project-item:nth-child(6) { --reveal-delay: 650ms; }
+    .project-item:nth-child(7) { --reveal-delay: 720ms; }
+    .project-item:nth-child(8) { --reveal-delay: 790ms; }
+    .project-item:nth-child(9) { --reveal-delay: 860ms; }
+    .project-item:nth-child(10) { --reveal-delay: 930ms; }
+    .project-item:nth-child(11) { --reveal-delay: 1000ms; }
+    .works-footer { --reveal-delay: 1080ms; }
+
+    .reveal-letter-0 { --letter-index: 0; }
+    .reveal-letter-1 { --letter-index: 1; }
+    .reveal-letter-2 { --letter-index: 2; }
+    .reveal-letter-3 { --letter-index: 3; }
+    .reveal-letter-4 { --letter-index: 4; }
+    .reveal-letter-5 { --letter-index: 5; }
+    .reveal-letter-6 { --letter-index: 6; }
+    .reveal-letter-7 { --letter-index: 7; }
+    .reveal-letter-8 { --letter-index: 8; }
+    .reveal-letter-9 { --letter-index: 9; }
+    .reveal-letter-10 { --letter-index: 10; }
+    .reveal-letter-11 { --letter-index: 11; }
+    .reveal-letter-12 { --letter-index: 12; }
+    .reveal-letter-13 { --letter-index: 13; }
+    .reveal-letter-14 { --letter-index: 14; }
+    .reveal-letter-15 { --letter-index: 15; }
+    .reveal-letter-16 { --letter-index: 16; }
+    .reveal-letter-17 { --letter-index: 17; }
+    .reveal-letter-18 { --letter-index: 18; }
+    .reveal-letter-19 { --letter-index: 19; }
+    .reveal-letter-20 { --letter-index: 20; }
+    .reveal-letter-21 { --letter-index: 21; }
+    .reveal-letter-22 { --letter-index: 22; }
+    .reveal-letter-23 { --letter-index: 23; }
+    .reveal-letter-24 { --letter-index: 24; }
+    .reveal-letter-25 { --letter-index: 25; }
+    .reveal-letter-26 { --letter-index: 26; }
+    .reveal-letter-27 { --letter-index: 27; }
+    .reveal-letter-28 { --letter-index: 28; }
+    .reveal-letter-29 { --letter-index: 29; }
+    .reveal-letter-30 { --letter-index: 30; }
+    .reveal-letter-31 { --letter-index: 31; }
+    .reveal-letter-32 { --letter-index: 32; }
+    .reveal-letter-33 { --letter-index: 33; }
+    .reveal-letter-34 { --letter-index: 34; }
+    .reveal-letter-35 { --letter-index: 35; }
+    .reveal-letter-36 { --letter-index: 36; }
+    .reveal-letter-37 { --letter-index: 37; }
+    .reveal-letter-38 { --letter-index: 38; }
+    .reveal-letter-39 { --letter-index: 39; }
+    .reveal-letter-40 { --letter-index: 40; }
+
+    @keyframes box-reveal {
+      from { opacity: 0; transform: scaleX(0); }
+      to { opacity: 1; transform: scaleX(1); }
+    }
+
+    @keyframes works-letter-reveal {
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .project-list {
@@ -258,7 +372,21 @@
 
     @media (prefers-reduced-motion: reduce) {
       ::view-transition-group(lavori-panel) { animation-duration: 1ms; }
-      .works-header a { transition: none; }
+      .works-header a,
+      body.works-ready .works-header a {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+
+      .works-header a::before { transition: none; }
+
+      .reveal-letter,
+      body.works-ready .reveal-letter {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
     }
   </style>
 </head>
@@ -366,5 +494,47 @@
       <p>Copyright 2026 — ©Alessio Palermo</p>
     </footer>
   </main>
+
+  <script>
+    const revealTargets = document.querySelectorAll(
+      ".works-header a, .project-link span, .works-footer p",
+    );
+
+    revealTargets.forEach((element) => {
+      const text = element.textContent.trim();
+      const copy = document.createElement("span");
+      copy.className = "reveal-copy";
+      copy.setAttribute("aria-hidden", "true");
+      let letterIndex = 0;
+
+      text.split(/\s+/).forEach((word, wordIndex, words) => {
+        const wordElement = document.createElement("span");
+        wordElement.className = "reveal-word";
+
+        [...word].forEach((character) => {
+          const letter = document.createElement("span");
+          letter.className = `reveal-letter reveal-letter-${letterIndex}`;
+          letter.textContent = character;
+          wordElement.appendChild(letter);
+          letterIndex += 1;
+        });
+
+        copy.appendChild(wordElement);
+        if (wordIndex < words.length - 1) {
+          copy.appendChild(document.createTextNode(" "));
+        }
+      });
+
+      element.textContent = "";
+      element.setAttribute("aria-label", text);
+      element.appendChild(copy);
+    });
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        document.body.classList.add("works-ready");
+      });
+    });
+  </script>
 </body>
 </html>
