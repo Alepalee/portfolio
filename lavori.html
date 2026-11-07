@@ -90,7 +90,8 @@
       text-transform: uppercase;
     }
 
-    .works-mode-header a {
+    .works-mode-header a,
+    .primary-nav a {
       transform-origin: right center;
       opacity: 0;
       transform: scaleX(0);
@@ -105,8 +106,10 @@
       width: 100%;
     }
 
-    body.works-content-ready .works-mode-header a {
-      animation: box-reveal 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    /* Stessa apertura dei box di index.html (box-reveal 300ms, ritardo 80ms) */
+    body.works-content-ready .works-mode-header a,
+    body.works-content-ready .primary-nav a {
+      animation: box-reveal 300ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
     }
 
     .works-mode-header a::before,
@@ -155,16 +158,19 @@
       pointer-events: none;
     }
 
+    /* L'elenco entra dopo i box superiori (come il testo di benvenuto in index.html) */
     body.works-content-ready .works-content {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
+      transition-delay: 650ms;
     }
 
     body.works-content-exit .works-content {
       opacity: 0;
       transform: translateY(24px);
       pointer-events: none;
+      transition-delay: 0ms;
     }
 
     .unified-project-list {
@@ -256,26 +262,32 @@
 
     body.works-content-ready .works-reveal-letter {
       animation: unified-letter-in 260ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      animation-delay: calc(var(--row-delay) + var(--works-letter-index) * 12ms);
+      animation-delay: calc(var(--row-delay) + var(--works-letter-index) * var(--letter-step, 12ms));
     }
 
     body.works-content-exit .works-reveal-letter {
       animation: unified-letter-out 180ms ease forwards;
     }
 
+    /* Box superiori: le lettere partono a box aperto, 390ms + 24ms a lettera, come i box di index.html */
     .works-mode-header,
-    .primary-nav { --row-delay: 0ms; }
-    .unified-project-item:nth-child(1) { --row-delay: 0ms; }
-    .unified-project-item:nth-child(2) { --row-delay: 55ms; }
-    .unified-project-item:nth-child(3) { --row-delay: 110ms; }
-    .unified-project-item:nth-child(4) { --row-delay: 165ms; }
-    .unified-project-item:nth-child(5) { --row-delay: 220ms; }
-    .unified-project-item:nth-child(6) { --row-delay: 275ms; }
-    .unified-project-item:nth-child(7) { --row-delay: 330ms; }
-    .unified-project-item:nth-child(8) { --row-delay: 385ms; }
-    .unified-project-item:nth-child(9) { --row-delay: 440ms; }
-    .unified-project-item:nth-child(10) { --row-delay: 495ms; }
-    .unified-project-item:nth-child(11) { --row-delay: 550ms; }
+    .primary-nav {
+      --row-delay: 390ms;
+      --letter-step: 24ms;
+    }
+
+    /* Elenco: parte a 650ms (come il testo di benvenuto in index.html), righe sfalsate di 55ms */
+    .unified-project-item:nth-child(1) { --row-delay: 650ms; }
+    .unified-project-item:nth-child(2) { --row-delay: 705ms; }
+    .unified-project-item:nth-child(3) { --row-delay: 760ms; }
+    .unified-project-item:nth-child(4) { --row-delay: 815ms; }
+    .unified-project-item:nth-child(5) { --row-delay: 870ms; }
+    .unified-project-item:nth-child(6) { --row-delay: 925ms; }
+    .unified-project-item:nth-child(7) { --row-delay: 980ms; }
+    .unified-project-item:nth-child(8) { --row-delay: 1035ms; }
+    .unified-project-item:nth-child(9) { --row-delay: 1090ms; }
+    .unified-project-item:nth-child(10) { --row-delay: 1145ms; }
+    .unified-project-item:nth-child(11) { --row-delay: 1200ms; }
 
     .works-letter-0 { --works-letter-index: 0; }
     .works-letter-1 { --works-letter-index: 1; }
@@ -469,7 +481,9 @@
       }
 
       .works-mode-header a,
-      body.works-content-ready .works-mode-header a {
+      .primary-nav a,
+      body.works-content-ready .works-mode-header a,
+      body.works-content-ready .primary-nav a {
         opacity: 1;
         transform: none;
         animation: none;
@@ -495,7 +509,8 @@
   </style>
   <noscript>
     <style>
-      .works-mode-header a { opacity: 1; transform: none; }
+      .works-mode-header a,
+      .primary-nav a { opacity: 1; transform: none; }
       .works-content { opacity: 1; transform: none; pointer-events: auto; }
     </style>
   </noscript>
@@ -657,9 +672,10 @@
 
     const startWorksAnimation = () => {
       body.classList.add("works-content-ready");
+      // Fine sequenza: ultimo carattere dell'elenco termina a ~1.75s
       worksAnimationTimer = window.setTimeout(() => {
         body.classList.add("works-animation-complete");
-      }, 1400);
+      }, 2000);
     };
 
     // L'animazione parte appena il font è pronto (con un limite massimo),
