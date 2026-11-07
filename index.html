@@ -214,8 +214,8 @@
       display: inline-block;
       opacity: 0;
       transform: translateY(110%);
-      animation: letter-reveal 260ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      animation-delay: calc(var(--sequence-delay) + var(--letter-index) * 24ms);
+      animation: letter-reveal 340ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(var(--sequence-delay) + var(--letter-index) * 55ms);
     }
 
     body.motion-loaded .primary-nav .letter {
@@ -452,7 +452,7 @@
 
     window.setTimeout(() => {
       document.body.classList.add("motion-loaded");
-    }, 1600);
+    }, 2100);
   </script>
 </body>
 </html>
