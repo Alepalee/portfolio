@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Portfolio di Alessio Palermo, editorial e graphic designer.">
   <title>Alessio Palermo — Portfolio</title>
+  <script>
+    try {
+      if (window.sessionStorage.getItem("home-loader-seen") === "true") {
+        document.documentElement.classList.add("skip-home-loader");
+      }
+    } catch (error) {
+      // The loader still works when browser storage is unavailable.
+    }
+  </script>
   <style>
     @font-face {
       font-family: "Funnel Display";
@@ -63,6 +72,13 @@
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+    }
+
+    html.skip-home-loader .page-loader { display: none; }
+
+    html.skip-home-loader body.is-loading {
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     .landing-page {
@@ -518,6 +534,9 @@
     const loaderStart = performance.now();
     const loaderInterval = 50;
     let loaderElapsed = 0;
+    let loaderTimer = null;
+    const shouldSkipLoader =
+      document.documentElement.classList.contains("skip-home-loader");
 
     const getLoadingValue = (progress) => {
       const nextIndex = loadingSteps.findIndex((step) => step.time >= progress);
@@ -529,18 +548,21 @@
       return Math.floor(start.value + (end.value - start.value) * easedSegment);
     };
 
-    const completeLoading = () => {
-      loaderProgress.textContent = "100";
-      loader.classList.add("is-complete");
-
-      window.setTimeout(() => {
+    const revealHome = () => {
+      window.requestAnimationFrame(() => {
         document.body.classList.remove("is-loading");
         document.body.classList.add("home-ready");
 
         window.setTimeout(() => {
           document.body.classList.add("motion-loaded");
         }, 1600);
-      }, 450);
+      });
+    };
+
+    const completeLoading = () => {
+      loaderProgress.textContent = "100";
+      loader.classList.add("is-complete");
+      window.setTimeout(revealHome, 450);
     };
 
     const updateLoading = () => {
@@ -555,8 +577,19 @@
       }
     };
 
-    const loaderTimer = window.setInterval(updateLoading, loaderInterval);
-    updateLoading();
+    if (shouldSkipLoader) {
+      loader.remove();
+      revealHome();
+    } else {
+      try {
+        window.sessionStorage.setItem("home-loader-seen", "true");
+      } catch (error) {
+        // Continue without persistence when browser storage is unavailable.
+      }
+
+      loaderTimer = window.setInterval(updateLoading, loaderInterval);
+      updateLoading();
+    }
   </script>
 </body>
 </html>
