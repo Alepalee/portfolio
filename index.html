@@ -450,10 +450,12 @@
 
     .works-mode-header a,
     .works-mode-header button {
+      position: relative;
       display: inline-flex;
       align-items: center;
       height: 100%;
       padding: 0 0.08em;
+      overflow: hidden;
       border: 0;
       color: #000;
       background: #fff;
@@ -464,7 +466,43 @@
       line-height: 1;
       text-decoration: none;
       text-transform: uppercase;
+      transform-origin: left center;
+      opacity: 0;
+      transform: scaleX(0);
       cursor: pointer;
+    }
+
+    .works-mode-header a { transform-origin: right center; }
+
+    body.works-content-ready .works-mode-header a,
+    body.works-content-ready .works-mode-header button {
+      animation: box-reveal 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .works-mode-header a::before,
+    .works-mode-header button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: #8cff00;
+      transform: scaleY(0);
+      transform-origin: bottom center;
+      transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .works-mode-header a:hover::before,
+    .works-mode-header a:focus-visible::before,
+    .works-mode-header button:hover::before,
+    .works-mode-header button:focus-visible::before {
+      transform: scaleY(1);
+    }
+
+    .works-mode-header .works-reveal-copy {
+      position: relative;
+      z-index: 1;
+      color: #000;
+      mix-blend-mode: multiply;
     }
 
     .primary-nav .about-link {
@@ -477,9 +515,10 @@
     }
 
     .primary-nav .works-trigger {
-      width: auto;
+      width: max-content;
       margin-left: auto;
-      transition: width 650ms cubic-bezier(0.22, 1, 0.36, 1);
+      interpolate-size: allow-keywords;
+      transition: width 650ms linear;
     }
 
     body.works-mode .designer-meta {
@@ -501,7 +540,6 @@
 
     body.works-mode .primary-nav .works-trigger {
       width: 100%;
-      margin-left: 0;
       justify-content: center;
     }
 
@@ -563,6 +601,7 @@
     .unified-project-item { padding-bottom: 19px; }
 
     .unified-project-link {
+      position: relative;
       display: grid;
       grid-template-columns: 110px minmax(0, 1000px) 70px minmax(0, 1fr);
       align-items: center;
@@ -574,6 +613,11 @@
       line-height: 1.08;
       text-decoration: none;
       text-transform: uppercase;
+      isolation: isolate;
+      transition:
+        color 180ms ease,
+        background-color 180ms ease,
+        border-color 180ms ease;
     }
 
     .unified-project-number,
@@ -596,7 +640,21 @@
 
     .unified-project-link:hover .unified-project-name,
     .unified-project-link:focus-visible .unified-project-name {
-      color: #8cff00;
+      color: #000;
+    }
+
+    .unified-project-link:hover,
+    .unified-project-link:focus-visible {
+      color: #000;
+      background: #fff;
+      border-color: #000;
+    }
+
+    .unified-project-link:hover .unified-project-number,
+    .unified-project-link:hover .unified-project-meta,
+    .unified-project-link:focus-visible .unified-project-number,
+    .unified-project-link:focus-visible .unified-project-meta {
+      color: #000;
     }
 
     .unified-project-link:focus-visible {
@@ -627,6 +685,7 @@
       animation: unified-letter-out 180ms ease forwards;
     }
 
+    .works-mode-header { --row-delay: 0ms; }
     .unified-project-item:nth-child(1) { --row-delay: 0ms; }
     .unified-project-item:nth-child(2) { --row-delay: 55ms; }
     .unified-project-item:nth-child(3) { --row-delay: 110ms; }
@@ -687,6 +746,33 @@
 
     @keyframes unified-letter-out {
       to { opacity: 0; transform: translateY(110%); }
+    }
+
+    @keyframes interactive-letter-reveal {
+      from { opacity: 0; transform: translateY(110%); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    body.motion-loaded .primary-nav a:hover .letter,
+    body.motion-loaded .primary-nav a:focus-visible .letter {
+      animation: interactive-letter-reveal 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-delay: calc(var(--letter-index) * 22ms);
+    }
+
+    body.works-animation-complete .works-reveal-letter {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
+    body.works-animation-complete .works-mode-header a:hover .works-reveal-letter,
+    body.works-animation-complete .works-mode-header a:focus-visible .works-reveal-letter,
+    body.works-animation-complete .works-mode-header button:hover .works-reveal-letter,
+    body.works-animation-complete .works-mode-header button:focus-visible .works-reveal-letter,
+    body.works-animation-complete .unified-project-link:hover .works-reveal-letter,
+    body.works-animation-complete .unified-project-link:focus-visible .works-reveal-letter {
+      animation: interactive-letter-reveal 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-delay: calc(var(--works-letter-index) * 12ms);
     }
 
     @media (max-width: 900px) {
@@ -774,11 +860,31 @@
         transition: none;
       }
 
+      .works-mode-header a,
+      .works-mode-header button,
+      body.works-content-ready .works-mode-header a,
+      body.works-content-ready .works-mode-header button {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+
       .works-reveal-letter,
       body.works-content-ready .works-reveal-letter,
       body.works-content-exit .works-reveal-letter {
         opacity: 1;
         transform: none;
+        animation: none;
+      }
+
+      body.motion-loaded .primary-nav a:hover .letter,
+      body.motion-loaded .primary-nav a:focus-visible .letter,
+      body.works-animation-complete .works-mode-header a:hover .works-reveal-letter,
+      body.works-animation-complete .works-mode-header a:focus-visible .works-reveal-letter,
+      body.works-animation-complete .works-mode-header button:hover .works-reveal-letter,
+      body.works-animation-complete .works-mode-header button:focus-visible .works-reveal-letter,
+      body.works-animation-complete .unified-project-link:hover .works-reveal-letter,
+      body.works-animation-complete .unified-project-link:focus-visible .works-reveal-letter {
         animation: none;
       }
     }
@@ -942,76 +1048,48 @@
       element.appendChild(copy);
     });
 
-    document.querySelectorAll(".unified-project-link span").forEach((element) => {
-      const text = element.textContent.trim();
-      const copy = document.createElement("span");
-      copy.className = "works-reveal-copy";
-      copy.setAttribute("aria-hidden", "true");
-      let letterIndex = 0;
+    document
+      .querySelectorAll(
+        ".works-mode-header a, .works-mode-header button, .unified-project-link span",
+      )
+      .forEach((element) => {
+        const text = element.textContent.trim();
+        const copy = document.createElement("span");
+        copy.className = "works-reveal-copy";
+        copy.setAttribute("aria-hidden", "true");
+        let letterIndex = 0;
 
-      text.split(/\s+/).forEach((word, wordIndex, words) => {
-        const wordElement = document.createElement("span");
-        wordElement.className = "works-reveal-word";
+        text.split(/\s+/).forEach((word, wordIndex, words) => {
+          const wordElement = document.createElement("span");
+          wordElement.className = "works-reveal-word";
 
-        [...word].forEach((character) => {
-          const letter = document.createElement("span");
-          letter.className = `works-reveal-letter works-letter-${letterIndex}`;
-          letter.textContent = character;
-          wordElement.appendChild(letter);
-          letterIndex += 1;
+          [...word].forEach((character) => {
+            const letter = document.createElement("span");
+            letter.className = `works-reveal-letter works-letter-${letterIndex}`;
+            letter.textContent = character;
+            wordElement.appendChild(letter);
+            letterIndex += 1;
+          });
+
+          copy.appendChild(wordElement);
+          if (wordIndex < words.length - 1) {
+            copy.appendChild(document.createTextNode(" "));
+          }
         });
 
-        copy.appendChild(wordElement);
-        if (wordIndex < words.length - 1) {
-          copy.appendChild(document.createTextNode(" "));
-        }
+        element.textContent = "";
+        element.setAttribute("aria-label", text);
+        element.appendChild(copy);
       });
-
-      element.textContent = "";
-      element.setAttribute("aria-label", text);
-      element.appendChild(copy);
-    });
 
     const worksTrigger = document.querySelector(".works-trigger");
     const worksHomeTrigger = document.querySelector(".works-home-trigger");
     const transitionDuration = 650;
     let modeTransitioning = false;
+    let worksAnimationTimer = null;
 
     const wait = (duration) =>
       new Promise((resolve) => window.setTimeout(resolve, duration));
-
-    const nextFrame = () =>
-      new Promise((resolve) => window.requestAnimationFrame(resolve));
-
-    const animateBoxBetween = async (firstRect, lastRect) => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        return;
-      }
-
-      const deltaX = firstRect.left - lastRect.left;
-      const deltaY = firstRect.top - lastRect.top;
-      const scaleX = firstRect.width / lastRect.width;
-      const scaleY = firstRect.height / lastRect.height;
-      const animation = worksTrigger.animate(
-        [
-          {
-            transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`,
-          },
-          { transform: "translate(0, 0) scale(1, 1)" },
-        ],
-        {
-          duration: transitionDuration,
-          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-          fill: "both",
-        },
-      );
-
-      try {
-        await animation.finished;
-      } finally {
-        animation.cancel();
-      }
-    };
 
     const enterWorks = async (updateHistory = true) => {
       if (modeTransitioning || document.body.classList.contains("works-mode")) {
@@ -1019,17 +1097,17 @@
       }
 
       modeTransitioning = true;
-      const firstRect = worksTrigger.getBoundingClientRect();
       document.body.classList.add("works-mode");
-      await nextFrame();
-      const lastRect = worksTrigger.getBoundingClientRect();
 
       if (updateHistory) {
         window.history.pushState({ view: "works" }, "", "#lavori");
       }
 
-      await animateBoxBetween(firstRect, lastRect);
+      await wait(transitionDuration);
       document.body.classList.add("works-content-ready");
+      worksAnimationTimer = window.setTimeout(() => {
+        document.body.classList.add("works-animation-complete");
+      }, 1400);
       modeTransitioning = false;
     };
 
@@ -1039,20 +1117,19 @@
       }
 
       modeTransitioning = true;
+      window.clearTimeout(worksAnimationTimer);
+      document.body.classList.remove("works-animation-complete");
       document.body.classList.remove("works-content-ready");
       document.body.classList.add("works-content-exit");
       await wait(280);
 
-      const firstRect = worksTrigger.getBoundingClientRect();
       document.body.classList.remove("works-mode");
-      await nextFrame();
-      const lastRect = worksTrigger.getBoundingClientRect();
 
       if (updateHistory) {
         window.history.pushState({ view: "home" }, "", window.location.pathname);
       }
 
-      await animateBoxBetween(firstRect, lastRect);
+      await wait(transitionDuration);
       document.body.classList.remove("works-content-exit");
       modeTransitioning = false;
       window.scrollTo({ top: 0, behavior: "smooth" });
