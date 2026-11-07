@@ -17,8 +17,67 @@ document.addEventListener("DOMContentLoaded", () => {
      PAGINA HOME (index.html)
      ========================================================================== */
 
+  // Suddivisione in parole/lettere per testi con elementi annidati (link, evidenziature):
+  // la struttura HTML viene mantenuta e l'animazione procede per parola
+  const splitRichText = (element) => {
+    let wordIndex = 0;
+
+    const walk = (source, target) => {
+      source.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          // U+2060 impedisce l'a capo tra una parola e un elemento adiacente senza spazio
+          // (es. "dell'" + link, "CSS" + virgola), come nel testo non suddiviso
+          const parts = node.textContent.split(/(\s+)/).filter(Boolean);
+          parts.forEach((part, partIndex) => {
+            if (/^\s+$/.test(part)) {
+              target.appendChild(document.createTextNode(" "));
+              return;
+            }
+
+            if (partIndex === 0 && node.previousSibling && node.previousSibling.nodeType === Node.ELEMENT_NODE) {
+              target.appendChild(document.createTextNode("\u2060"));
+            }
+
+            const word = document.createElement("span");
+            word.className = "animated-word";
+
+            [...part].forEach((character) => {
+              const letter = document.createElement("span");
+              letter.className = "letter";
+              letter.style.setProperty("--letter-index", wordIndex);
+              letter.textContent = character;
+              word.appendChild(letter);
+            });
+
+            wordIndex += 1;
+            target.appendChild(word);
+
+            if (partIndex === parts.length - 1 && node.nextSibling && node.nextSibling.nodeType === Node.ELEMENT_NODE) {
+              target.appendChild(document.createTextNode("\u2060"));
+            }
+          });
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          const clone = node.cloneNode(false);
+          walk(node, clone);
+          target.appendChild(clone);
+        }
+      });
+    };
+
+    const copy = document.createElement("span");
+    copy.className = "animated-copy animated-copy-rich";
+    walk(element, copy);
+    element.textContent = "";
+    element.appendChild(copy);
+  };
+
   // Suddivisione in lettere per elementi con data-animate-text (es. navigazione Home)
   document.querySelectorAll("[data-animate-text]").forEach((element) => {
+    if (element.children.length > 0) {
+      splitRichText(element);
+      return;
+    }
+
     const text = element.textContent;
     const copy = document.createElement("span");
     copy.className = "animated-copy";
@@ -170,12 +229,28 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 2000);
     };
 
+    // Nella pagina Chi sono il titolo parte insieme al resto, dopo il loader
+    const whenHomeReady = (callback) => {
+      if (!body.classList.contains("about-page") || body.classList.contains("home-ready")) {
+        callback();
+        return;
+      }
+
+      const observer = new MutationObserver(() => {
+        if (body.classList.contains("home-ready")) {
+          observer.disconnect();
+          callback();
+        }
+      });
+      observer.observe(body, { attributes: true, attributeFilter: ["class"] });
+    };
+
     // L'animazione parte appena il font è pronto (con un limite massimo di 600ms)
     const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
     Promise.race([
       fontsReady,
       new Promise((resolve) => window.setTimeout(resolve, 600)),
-    ]).then(() => window.requestAnimationFrame(startWorksAnimation));
+    ]).then(() => whenHomeReady(() => window.requestAnimationFrame(startWorksAnimation)));
 
     // Transizione in uscita verso la Home
     if (homeLink) {
