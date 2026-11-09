@@ -187,17 +187,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (worksRevealElements.length > 0) {
     worksRevealElements.forEach((element) => {
-      const text = element.textContent.trim();
+      // Le parole vengono separate da spazi; un <br> nell'HTML forza un a capo e viene mantenuto
+      const tokens = [];
+      element.childNodes.forEach((node) => {
+        if (node.nodeName === "BR") {
+          tokens.push({ lineBreak: true });
+        } else {
+          node.textContent
+            .split(/\s+/)
+            .filter(Boolean)
+            .forEach((word) => tokens.push({ word }));
+        }
+      });
+
+      const text = tokens
+        .map((token) => (token.lineBreak ? " " : token.word))
+        .join(" ")
+        .replace(/\s+/g, " ")
+        .trim();
       const copy = document.createElement("span");
       copy.className = "works-reveal-copy";
       copy.setAttribute("aria-hidden", "true");
       let letterIndex = 0;
 
-      text.split(/\s+/).forEach((word, wordIndex, words) => {
+      tokens.forEach((token, tokenIndex) => {
+        if (token.lineBreak) {
+          copy.appendChild(document.createElement("br"));
+          return;
+        }
+
         const wordElement = document.createElement("span");
         wordElement.className = "works-reveal-word";
 
-        [...word].forEach((character) => {
+        [...token.word].forEach((character) => {
           const letter = document.createElement("span");
           letter.className = `works-reveal-letter works-letter-${letterIndex}`;
           letter.textContent = character;
@@ -206,7 +228,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         copy.appendChild(wordElement);
-        if (wordIndex < words.length - 1) {
+
+        const next = tokens[tokenIndex + 1];
+        if (next && !next.lineBreak) {
           copy.appendChild(document.createTextNode(" "));
         }
       });
@@ -285,5 +309,39 @@ document.addEventListener("DOMContentLoaded", () => {
         body.classList.add("works-content-ready", "works-animation-complete");
       }
     });
+  }
+
+  /* ==========================================================================
+     PAGINE PROGETTO (tesi.html e simili)
+     ========================================================================== */
+
+  // Dopo la prima schermata, i contenuti compaiono man mano che si scorre
+  // (stessa comparsa anche in Chi sono: tutto ciò che sta sotto il testo principale)
+  if (
+    document.body.classList.contains("project-page") ||
+    document.body.classList.contains("about-page")
+  ) {
+    const revealTargets = document.querySelectorAll(
+      ".project-intro, .project-details, .project-gallery-row, .project-footer, .about-row, .about-footer",
+    );
+
+    if ("IntersectionObserver" in window && revealTargets.length > 0) {
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+
+      revealTargets.forEach((target) => {
+        target.classList.add("project-reveal");
+        revealObserver.observe(target);
+      });
+    }
   }
 });

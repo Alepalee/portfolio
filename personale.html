@@ -1,129 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il mon(d)o a larghezza fissa</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Infografica personale — progetto di Alessio Palermo.">
+  <title>Infografica personale — Alessio Palermo</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="script.js" defer></script>
 </head>
-<body>
-    <div class="topinfo">
-        <p> </p>
-        <p></p>
-        <div style="display: flex;">
-            <p></p><sup></sup>
-        </div>
-    </div>
+<body class="lavori-page project-page">
+  <main class="landing-page">
+    <div class="landing-canvas">
+      <nav class="works-mode-header" aria-label="Navigazione progetto">
+        <a class="works-home-link" href="index.html">Home</a>
+        <a href="lavori.html">Altri lavori</a>
+      </nav>
 
-    <nav id="paginalavoro">
-        <div class="vocenavigazione" >
-            <a href="index.html" id="voce" data-text="[Home]">[Home]</a>
-        </div>
-    
-        <div class="vocenavigazione">
-            <a href="lavori.html" id="voce" data-text="[Altri lavori]">[Altri lavori]</a>
-        </div>
-    
-        <div class="vocenavigazione">
-            <a href="" id="voce" data-text="[Contatti]">[Contatti]</a>
-        </div>
-    </nav>
+      <section class="landing-content">
+        <!-- Prima schermata: titolo, copertina e dati del progetto (il resto appare scrollando) -->
+        <div class="project-hero">
+          <!-- Titolo e immagine di copertina -->
+          <header class="project-header">
+            <h1 class="works-title">Infografica personale</h1>
+            <img class="project-cover" src="images/tesi1/CopertinaPagina.webp" alt="Copertina del progetto Infografica personale">
+          </header>
 
-    <section class="hero" id="heroprog">
-        <header class="headerprog">
-            <div class="nomelavoro">
-                <h1 class="">INFOGRAFICA</h1>
-                <h1 class="">PERSONALE</h1>
+          <!-- Dati del progetto: aggiungi o rimuovi blocchi .project-meta-item -->
+          <dl class="project-meta">
+            <div class="project-meta-item">
+              <dt>Progetto</dt>
+              <dd class="project-tag">Editorial</dd>
             </div>
-
-            <img src=""  loading="lazy" alt="" class="copertinaprogetti">
-        </header>
-
-    </section>
-
-    <main>
-
-        <section class="contenthome" id="infoprogetto">
-            <div class="infoprinc">
-                <div class="vociinfoprog" id="principale">
-                    <h2>[PROGETTO]</h2>
-                    <h3>Accademico</h3>
-                </div>
-
-                <div class="vociinfoprog"  id="principale">
-                    <h2>[ANNO]</h2>
-                    <h3>2025</h3>
-                </div>
-
-                <div class="vociinfoprog"  id="principale">
-                    <h2>[DISCIPLINA]</h2>
-                    <h3>Graphic Design 3</h3>
-                </div>
-
-                <div class="vociinfoprog"  id="principale">
-                    <h2>[DOCENTE]</h2>
-                    <h3>Giuseppe Maurizio Astuti</h3>
-                </div>
+            <div class="project-meta-item">
+              <dt>Anno</dt>
+              <dd class="project-tag">2025</dd>
             </div>
-
-            <div class="paragrafo" id="descrizioneprog">
-                <p id="primariga">
-                ...
-                </p>
+            <div class="project-meta-item">
+              <dt>Disciplina</dt>
+              <dd class="project-tag">Disciplina</dd>
+            </div>
+            <div class="project-meta-item">
+              <dt>Ruolo</dt>
+              <dd class="project-tag">Designer</dd>
+            </div>
+          </dl>
         </div>
 
-        <div class="contimg">
-            <img src="images/" alt="" class="imgprogetti">
-            <img src="images/" alt="" class="imgprogetti">
-            <img src="images/" alt="" class="imgprogetti">
+        <!-- Testo introduttivo (le parti in evidenza vanno in <span class="text-accent">) -->
+        <p class="project-intro">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <span class="text-accent">Ut enim ad minim veniam</span>, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        </p>
+
+        <!-- Approfondimento: etichetta a sinistra, testo a destra. Duplica il blocco per altre sezioni -->
+        <div class="project-details">
+          <h2 class="project-tag">Altro</h2>
+          <div class="project-details-text">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam, maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+            <p>Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper, duis arcu massa, scelerisque vitae, consequat in, pretium a, enim.</p>
+          </div>
         </div>
 
-            <div class="altreinfo">
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[FORMATO]</h2>
-                    <h3>21x29,7cm</h3>
-                </div>
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[N.PAGINE]</h2>
-                    <h3>8</h3>
-                </div>
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[FONT UTILIZZATO]</h2>
-                    <h3>PP Telegraf</h3>
-                </div>
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[RILEGATURA]</h2>
-                    <h3>Punto Metallico</h3>
-                </div>
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[CARTA]</h2>
-                    <h3>Favini Shiro Eco - White, 140gr/m<sup>2</sup></h3>
-                </div>
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[STAMPA]</h2>
-                    <h3>Stampato presso "Sgroi Arti grafiche", Catania - Via Musumeci 33</h3>
-                    <h3>Finito di stampare a Giugno 2025</h3>
-                </div>
-                
-            </div>
+        <!-- Galleria. Classi riga: --full (1 immagine a tutta larghezza), --pair (2 affiancate),
+             --center (1 immagine centrata, più stretta), --grid (griglia 2 colonne di tavole) -->
+        <!-- Immagini segnaposto (le stesse della tesi): sostituire i percorsi con le immagini del progetto -->
+        <section class="project-gallery" aria-label="Immagini del progetto">
+          <div class="project-gallery-row project-gallery-row--full">
+            <img src="images/tesi1/Group%2010.webp" alt="Immagine segnaposto del progetto" loading="lazy">
+          </div>
+          <div class="project-gallery-row project-gallery-row--full">
+            <img src="images/tesi1/IMG_0041.webp" alt="Immagine segnaposto del progetto" loading="lazy">
+          </div>
+          <div class="project-gallery-row project-gallery-row--pair">
+            <img src="images/tesi1/IMG_0044.webp" alt="Immagine segnaposto del progetto" loading="lazy">
+            <img src="images/tesi1/IMG_0045.webp" alt="Immagine segnaposto del progetto" loading="lazy">
+          </div>
+          <div class="project-gallery-row project-gallery-row--center">
+            <img src="images/tesi1/Animazione%20tesi.gif" alt="Immagine segnaposto del progetto" loading="lazy">
+          </div>
+          <div class="project-gallery-row project-gallery-row--grid">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-3.webp" alt="Immagine segnaposto del progetto" loading="lazy">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-4.webp" alt="Immagine segnaposto del progetto" loading="lazy">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-1.webp" alt="Immagine segnaposto del progetto" loading="lazy">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-2.webp" alt="Immagine segnaposto del progetto" loading="lazy">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-5.webp" alt="Immagine segnaposto del progetto" loading="lazy">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-6.webp" alt="Immagine segnaposto del progetto" loading="lazy">
+          </div>
         </section>
+      </section>
 
-    </main>
-
-        
-    
-        
-        <footer>
-            <p>Copyright 2026 — ©Alessio Palermo</p>
-        </footer>
+      <footer class="project-footer">
+        <p>Copyright 2026 — ©Alessio Palermo</p>
+        <p class="project-footer-social">@alepa.archive — @alepa.le</p>
+      </footer>
+    </div>
+  </main>
 </body>
 </html>
