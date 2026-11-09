@@ -1,164 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il mon(d)o a larghezza fissa</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Il mondo a larghezza fissa — progetto di Alessio Palermo.">
+  <title>Il mondo a larghezza fissa — Alessio Palermo</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="script.js" defer></script>
 </head>
-<body>
-    <div class="topinfo">
-        <p> </p>
-        <p></p>
-        <div style="display: flex;">
-            <p></p><sup></sup>
-        </div>
-    </div>
+<body class="lavori-page project-page">
+  <main class="landing-page">
+    <div class="landing-canvas">
+      <nav class="works-mode-header" aria-label="Navigazione progetto">
+        <a class="works-home-link" href="index.html">Home</a>
+        <a href="lavori.html">Altri lavori</a>
+      </nav>
 
-    <nav id="paginalavoro">
-        <div class="vocenavigazione" >
-            <a href="index.html" id="voce" data-text="[Home]">[Home]</a>
-        </div>
-    
-        <div class="vocenavigazione">
-            <a href="lavori.html" id="voce" data-text="[Altri lavori]">[Altri lavori]</a>
-        </div>
-    
-        <div class="vocenavigazione">
-            <a href="" id="voce" data-text="[Contatti]">[Contatti]</a>
-        </div>
-    </nav>
-
-    <section class="hero" id="heroprog">
-        <header class="headerprog">
-            <div class="nomelavoro">
-                <h1 class="">IL MON(D)O</h1>
-                <h1 class="">A</h1>
-                <h1 class=" ">LARGHEZZA FISSA</h1>
-            </div>
-
-            <img src="images/tesi1/CopertinaPagina.webp"  loading="lazy" alt="" class="copertinaprogetti">
+      <section class="landing-content">
+        <!-- Titolo e immagine di copertina -->
+        <header class="project-header">
+          <h1 class="works-title">Il mondo a larghezza fissa</h1>
+          <img class="project-cover" src="images/tesi1/CopertinaPagina.webp" alt="Copertina della tesi Il mon(d)o a larghezza fissa">
         </header>
 
-    </section>
+        <!-- Dati del progetto: aggiungi o rimuovi blocchi .project-meta-item -->
+        <dl class="project-meta">
+          <div class="project-meta-item">
+            <dt>Progetto</dt>
+            <dd class="project-tag">Tesi</dd>
+          </div>
+          <div class="project-meta-item">
+            <dt>Anno</dt>
+            <dd class="project-tag">2025</dd>
+          </div>
+          <div class="project-meta-item">
+            <dt>Disciplina</dt>
+            <dd class="project-tag">Web design</dd>
+          </div>
+          <div class="project-meta-item">
+            <dt>Relatore</dt>
+            <dd class="project-tag">Ciro Esposito</dd>
+          </div>
+        </dl>
 
-    <main>
+        <!-- Testo introduttivo (le parti in evidenza vanno in <span class="text-accent">) -->
+        <p class="project-intro">
+          La tesi esplora l’evoluzione e la progettazione dei <span class="text-accent">caratteri monospaziati</span>, analizzandone lo sviluppo storico e tecnico. Dalle prime forme di scrittura fino all’era digitale, il lavoro indaga come la relazione tra forma, mezzo e tecnologia abbia influenzato la nascita e la diffusione dei caratteri a larghezza fissa.
+        </p>
 
-        <section class="contenthome" id="infoprogetto">
-            <div class="infoprinc">
-                <div class="vociinfoprog" id="principale">
-                    <h2>[PROGETTO]</h2>
-                    <h3>Tesi</h3>
-                </div>
+        <!-- Approfondimento: etichetta a sinistra, testo a destra. Duplica il blocco per altre sezioni -->
+        <div class="project-details">
+          <h2 class="project-tag">Altro</h2>
+          <div class="project-details-text">
+            <p>Attraverso l’analisi delle principali tappe storiche e delle caratteristiche tecniche dei monospaziati, la ricerca evidenzia le sfide progettuali legate allo sviluppo di questi caratteri, dal mantenimento dell’equilibrio visivo all’ottenimento di una leggibilità ottimale.</p>
+            <p>Inoltre viene fatta un’analisi su come essi vengano utilizzati nella progettazione grafica contemporanea. Il risultato è una riflessione sul valore dei font monospaziati, come sintesi tra funzione ed estetica.</p>
+          </div>
+        </div>
 
-                <div class="vociinfoprog"  id="principale">
-                    <h2>[ANNO]</h2>
-                    <h3>2025</h3>
-                </div>
-
-                <div class="vociinfoprog"  id="principale">
-                    <h2>[DISCIPLINA]</h2>
-                    <h3>Web Design</h3>
-                </div>
-
-                <div class="vociinfoprog"  id="principale">
-                    <h2>[RELATORE]</h2>
-                    <h3><a href="https://ciroesposito.com/" class="linktagprogetto" target="_blank">Ciro Esposito</a></h3>
-                </div>
-            </div>
-
-            <div class="paragrafo" id="descrizioneprog">
-                    <p id="primariga">
-                    La tesi esplora l'evoluzione e la progettazione dei
-                    caratteri monospaziati, analizzandone lo sviluppo
-                    storico e tecnico.
-                    Dalle prime forme di scrittura fino
-                    all'era digitale, il lavoro indaga come la relazione tra
-                    forma, mezzo e tecnologia abbia influenzato la nascita
-                    e la diffusione dei caratteri a larghezza fissa.
-                    </p>
-                    <p>
-                    Attraverso l'analisi delle principali tappe storiche e delle
-                    caratteristiche tecniche dei monospaziati, la ricerca
-                    evidenzia le sfide progettuali legate allo sviluppo di
-                    questi caratteri, dal mantenimento dell'equilibrio
-                    visivo all'ottenimento di una leggibilità ottimale.
-                    </p>
-                    <p>
-                    Inoltre viene fatta un'analisi su come essi vengano
-                    utilizzati nella progettazione grafica contemporanea.
-                    Il risultato è una riflessione sul valore dei monospaziati, come sintesi tra funzionalità ed estetica.
-                    </p>
-            </div>
-
-            <div class="contimg">
-                <img src="images/tesi1/Group 10.webp" loading="lazy" alt="" class="imgprogetti">
-                <img src="images/tesi1/IMG_0041.webp" loading="lazy" alt="" class="imgprogetti">
-                <img src="images/tesi1/IMG_0044.webp" loading="lazy" alt="" class="imgprogetti">
-                <img src="images/tesi1/IMG_0045.webp" loading="lazy" alt="" class="imgprogetti">
-                
-                <div class="doppiepagine">
-                    <img src="images/tesi1/Animazione tesi.gif" style="width: 100% ;" alt="">
-                    <img src="images/tesi1/Doppie + Sfumatura.webp" loading="lazy" alt="" class="doppieL">
-                    <img src="images/tesi1/Doppie + Sfumatura-1.webp" loading="lazy" alt="" class="doppieR" style="align-self: end;">
-                    <img src="images/tesi1/Doppie + Sfumatura-4.webp" loading="lazy" alt="" class="doppieL">
-                    <img src="images/tesi1/Doppie + Sfumatura-2.webp" loading="lazy" alt="" class="doppieL" style="align-self: end;">
-                    <img src="images/tesi1/Doppie + Sfumatura-5.webp" loading="lazy" alt="" class="doppieR">
-                    <img src="images/tesi1/Doppie + Sfumatura-6.webp" loading="lazy" alt="" class="doppieL" style="align-self: end;">
-                    <img src="images/tesi1/Doppie + Sfumatura-3.webp" loading="lazy" alt="" class="doppieR">
-                    <img src="images/tesi1/Doppie + Sfumatura-7.webp" loading="lazy" alt="" class="doppieR" style="align-self: end;">
-                </div>
-            </div>
-
-            <div class="altreinfo">
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[FORMATO]</h2>
-                    <h3>16x23cm</h3>
-                </div>
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[N.PAGINE]</h2>
-                    <h3>144</h3>
-                </div>
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[FONT UTILIZZATI]</h2>
-                    <h3><a href="https://ia.net/downloads" class="linktagprogetto" target="_blank">iA Writer Duo</a></h3>
-                    <h3><a href="https://fonts.adobe.com/fonts/nitti" class="linktagprogetto" target="_blank">Nitti</a></h3>
-                    <h3><a href="https://fonts.adobe.com/fonts/nitti-typewriter" class="linktagprogetto" target="_blank">Nitti typewriter</a></h3>
-                </div>
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[RILEGATURA]</h2>
-                    <h3>Filo refe</h3>
-                    <h3>Copertina rigida</h3>
-                </div>
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[CARTA INTERNI]</h2>
-                    <h3>Favini Shiro Eco - White, 140gr/m<sup>2</sup></h3>
-                </div>
-
-                <div class="vociinfoprog" id="infoagg">
-                    <h2>[STAMPA]</h2>
-                    <h3>Stampato presso "Sgroi Arti grafiche", Catania - Via Musumeci 33</h3>
-                    <h3>Finito di stampare a Novembre 2025</h3>
-                </div>
-                
-            </div>
+        <!-- Galleria. Classi riga: --full (1 immagine a tutta larghezza), --pair (2 affiancate),
+             --center (1 immagine centrata, più stretta), --grid (griglia 2 colonne di tavole) -->
+        <section class="project-gallery" aria-label="Immagini del progetto">
+          <div class="project-gallery-row project-gallery-row--full">
+            <img src="images/tesi1/Group%2010.webp" alt="Tesi aperta: dorso, copertina e quarta di copertina" loading="lazy">
+          </div>
+          <div class="project-gallery-row project-gallery-row--full">
+            <img src="images/tesi1/IMG_0041.webp" alt="Pagine della tesi sfogliate con i caratteri monospaziati" loading="lazy">
+          </div>
+          <div class="project-gallery-row project-gallery-row--pair">
+            <img src="images/tesi1/IMG_0044.webp" alt="Pagine interne della tesi" loading="lazy">
+            <img src="images/tesi1/IMG_0045.webp" alt="Indice e capitoli della tesi" loading="lazy">
+          </div>
+          <div class="project-gallery-row project-gallery-row--center">
+            <img src="images/tesi1/Animazione%20tesi.gif" alt="Animazione della copertina della tesi" loading="lazy">
+          </div>
+          <div class="project-gallery-row project-gallery-row--grid">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-3.webp" alt="Tavola della tesi 1" loading="lazy">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-4.webp" alt="Tavola della tesi 2" loading="lazy">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-1.webp" alt="Tavola della tesi 3" loading="lazy">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-2.webp" alt="Tavola della tesi 4" loading="lazy">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-5.webp" alt="Tavola della tesi 5" loading="lazy">
+            <img src="images/tesi1/Doppie%20%2B%20Sfumatura-6.webp" alt="Tavola della tesi 6" loading="lazy">
+          </div>
         </section>
+      </section>
 
-    </main>
-
-        
-    
-        
-        <footer>
-            <p>Copyright 2026 — ©Alessio Palermo</p>
-        </footer>
+      <footer class="project-footer">
+        <p>Copyright 2026 — ©Alessio Palermo</p>
+        <p class="project-footer-social">@alepa.archive — @alepa.le</p>
+      </footer>
+    </div>
+  </main>
 </body>
 </html>

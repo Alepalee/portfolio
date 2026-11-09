@@ -7,6 +7,22 @@
 }
 
 @font-face {
+font-family: "Funnel Sans";
+src: url("../fonts/FunnelSans.ttf") format("truetype");
+font-style: normal;
+font-weight: 300 800;
+font-display: swap;
+}
+
+@font-face {
+font-family: "Funnel Sans";
+src: url("../fonts/FunnelSans-Italic.ttf") format("truetype");
+font-style: italic;
+font-weight: 300 800;
+font-display: swap;
+}
+
+@font-face {
 font-family: "Crimson Text";
 src: url("../fonts/CrimsonText-Regular.ttf") format("truetype");
 font-style: normal;
@@ -1207,7 +1223,7 @@ align-items: start;
 
 .about-col-text {
 padding-right: 0.41vw;
-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-family: "Funnel Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: clamp(1rem, 1.8vw, 2.1rem);
 font-weight: 700;
 line-height: 1.2;
@@ -1279,5 +1295,201 @@ text-indent: 0;
 
 .about-col-text {
 font-size: 1.1rem;
+}
+}
+
+/* =========================================
+PAGINA PROGETTO (template e pagine di dettaglio)
+Usa body.lavori-page + body.project-page: eredita header, titolo, footer e animazioni di "Lavori".
+Colori: verde del sito (--primary-bg-color); dimensioni allineate a Chi sono e Lavori.
+========================================= */
+
+body.project-page {
+--project-accent: var(--primary-bg-color);
+}
+
+body.project-page .landing-content {
+margin-top: clamp(1rem, 2vw, 2rem);
+}
+
+.project-header {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+gap: 2rem;
+}
+
+/* Titolo: stessa dimensione dei box di navigazione, su due righe */
+body.project-page .works-title {
+display: block;
+width: auto;
+max-width: 78%;
+text-align: left;
+white-space: normal;
+}
+
+.project-cover {
+flex-shrink: 0;
+width: clamp(5rem, 10vw, 11rem);
+height: auto;
+margin-top: 0.5vw;
+}
+
+.project-meta {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items: flex-end;
+gap: 1rem 1.5rem;
+margin: clamp(3rem, 9vw, 10rem) 0 0;
+}
+
+.project-meta-item {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.3rem;
+}
+
+.project-meta dt {
+text-align: center;
+font-size: clamp(0.8rem, 1.1vw, 1.3rem);
+font-weight: 400;
+text-transform: uppercase;
+}
+
+.project-meta dd {
+margin: 0;
+}
+
+/* Etichette verdi: stesso stile dei titoli di sezione di Chi sono */
+.project-tag {
+display: inline-block;
+margin: 0;
+padding: 0.08em 0.06em;
+color: #000;
+background-color: var(--project-accent);
+font-size: clamp(2rem, 4.2vw, 5rem);
+font-weight: 600;
+line-height: 1;
+text-transform: uppercase;
+}
+
+.project-intro {
+max-width: 100%;
+margin: clamp(2.5rem, 7vw, 8rem) 0;
+font-size: clamp(1.1rem, 2.1vw, 2.4rem);
+font-weight: 500;
+line-height: 1.2;
+text-indent: 4.5vw;
+text-transform: uppercase;
+}
+
+.text-accent {
+color: var(--project-accent);
+}
+
+.project-details {
+display: grid;
+grid-template-columns: 1fr 1fr;
+justify-items: start;
+align-items: start;
+margin-bottom: clamp(3rem, 12vw, 13rem);
+}
+
+/* Testo lungo: stesso stile dei paragrafi di Chi sono */
+.project-details-text {
+padding-right: 0.41vw;
+font-family: "Funnel Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: clamp(1rem, 1.8vw, 2.1rem);
+font-weight: 700;
+line-height: 1.2;
+}
+
+.project-details-text p {
+margin: 0 0 1.2em;
+}
+
+.project-gallery {
+display: flex;
+flex-direction: column;
+gap: clamp(1.5rem, 6vw, 7rem);
+}
+
+.project-gallery-row {
+display: grid;
+gap: 1.7%;
+}
+
+.project-gallery-row img {
+display: block;
+width: 100%;
+height: auto;
+}
+
+.project-gallery-row--pair {
+grid-template-columns: 1fr 1fr;
+}
+
+.project-gallery-row--center {
+justify-items: center;
+}
+
+/* Larghezza della GIF: uguale al blocco di immagini sotto (56%). Per cambiarla modifica solo questo valore */
+.project-gallery-row--center img {
+width: 56%;
+}
+
+.project-gallery-row--grid {
+grid-template-columns: 1fr 1fr;
+gap: 1.7%;
+width: 56%;
+margin: 0 auto;
+}
+
+body.project-page footer.project-footer {
+justify-content: space-between;
+padding-top: clamp(3rem, 8vw, 9rem);
+font-weight: 400;
+}
+
+.project-footer-social {
+position: static;
+}
+
+@media (max-width: 768px) {
+body.project-page .works-title {
+max-width: 100%;
+}
+
+.project-header {
+flex-direction: column;
+}
+
+.project-meta {
+justify-content: flex-start;
+margin-top: 3rem;
+}
+
+.project-intro {
+font-size: 1.4rem;
+text-indent: 0;
+}
+
+.project-details {
+grid-template-columns: 1fr;
+gap: 1.5rem;
+}
+
+.project-details-text {
+font-size: 1.1rem;
+}
+
+.project-gallery-row--center img {
+width: 100%;
+}
+
+.project-gallery-row--grid {
+width: 100%;
 }
 }
