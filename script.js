@@ -321,6 +321,22 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.contains("project-page") ||
     document.body.classList.contains("about-page")
   ) {
+    // Misura quanto spazio c'è sopra la prima schermata, così occupa esattamente l'altezza della finestra
+    const hero = document.querySelector(".project-hero, .about-hero");
+    if (hero) {
+      const measureHero = () => {
+        hero.style.removeProperty("--hero-top");
+        const top = hero.getBoundingClientRect().top + window.scrollY;
+        hero.style.setProperty("--hero-top", `${top}px`);
+      };
+      measureHero();
+      window.addEventListener("resize", measureHero);
+      window.addEventListener("load", measureHero);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(measureHero);
+      }
+    }
+
     const revealTargets = document.querySelectorAll(
       ".project-intro, .project-details, .project-gallery-row, .project-footer, .about-row, .about-footer",
     );
@@ -335,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           });
         },
-        { threshold: 0.15 },
+        { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
       );
 
       revealTargets.forEach((target) => {
@@ -343,5 +359,59 @@ document.addEventListener("DOMContentLoaded", () => {
         revealObserver.observe(target);
       });
     }
+  }
+  /* ==========================================================================
+     ORDINAMENTO ELENCO LAVORI (lavori.html)
+     ========================================================================== */
+
+  const sortList = document.querySelector(".unified-project-list");
+  const sortButtons = document.querySelectorAll(".unified-sort-button");
+
+  if (sortList && sortButtons.length > 0) {
+    const collator = new Intl.Collator("it", { sensitivity: "base", numeric: true });
+
+    const sortItems = [...sortList.children].map((item, index) => ({
+      item,
+      index,
+      name: item
+        .querySelector(".unified-project-name")
+        .textContent.replace(/\s+/g, " ")
+        .trim(),
+      year: parseInt(item.querySelector(".unified-project-year").textContent, 10) || 0,
+      category: item
+        .querySelector(".unified-project-category")
+        .textContent.replace(/[\[\]]/g, "")
+        .trim(),
+    }));
+
+    const compare = {
+      name: (a, b) => collator.compare(a.name, b.name),
+      year: (a, b) => a.year - b.year,
+      category: (a, b) => collator.compare(a.category, b.category),
+    };
+
+    let sortState = { key: null, direction: 1 };
+
+    sortButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const key = button.dataset.sort;
+        // Primo clic: A–Z (Anno: dal più recente); clic successivi invertono l'ordine
+        const direction =
+          sortState.key === key ? -sortState.direction : key === "year" ? -1 : 1;
+
+        sortState = { key, direction };
+
+        sortItems.sort((a, b) => compare[key](a, b) * direction || a.index - b.index);
+        sortItems.forEach(({ item }) => sortList.appendChild(item));
+
+        sortButtons.forEach((other) => {
+          if (other === button) {
+            other.setAttribute("aria-sort", direction === 1 ? "ascending" : "descending");
+          } else {
+            other.removeAttribute("aria-sort");
+          }
+        });
+      });
+    });
   }
 });

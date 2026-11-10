@@ -389,7 +389,7 @@ user-select: none;
 .works-content {
 display: block;
 width: 100%;
-margin-top: clamp(2rem, 4.2vw, 3.5rem);
+margin-top: clamp(11rem, 4.2vw, 3.5rem);
 opacity: 0;
 transform: translateY(24px);
 transition:
@@ -415,25 +415,24 @@ transition-delay: 0ms;
 .unified-project-list {
 display: flex;
 flex-direction: column;
-gap: 16px;
 margin: 0;
 padding: 0;
 list-style: none;
 }
 
 .unified-project-item {
-padding-bottom: 19px;
+padding-bottom: 6px;
 }
 
 .unified-project-link {
 position: relative;
 display: grid;
-grid-template-columns: 110px minmax(0, 1000px) 70px minmax(0, 1fr);
+grid-template-columns: minmax(0, 1000px) 70px minmax(0, 1fr);
 align-items: center;
 width: 100%;
 min-height: 52px;
 border-bottom: 3px solid #6c0;
-font-size: clamp(1.75rem, 2.65vw, 2.5rem);
+font-size: clamp(1.75rem, 2vw, 2.5rem);
 font-weight: 300;
 line-height: 1.08;
 text-decoration: none;
@@ -487,6 +486,74 @@ color: var(--secondary-color);
 .unified-project-link:focus-visible {
 outline: 2px solid var(--primary-bg-color);
 outline-offset: 5px;
+}
+
+/* Intestazioni di ordinamento */
+.unified-sort {
+display: grid;
+grid-template-columns: minmax(0, 1000px) 70px minmax(0, 1fr);
+align-items: center;
+margin-bottom: 14px;
+}
+
+.unified-sort-button {
+position: relative;
+justify-self: start;
+padding: 0;
+border: 0;
+color: var(--primary-bg-color);
+background: none;
+font: inherit;
+font-size: clamp(0.8rem, 1.1vw, 1.3rem);
+font-weight: 400;
+line-height: 1;
+text-transform: uppercase;
+white-space: nowrap;
+cursor: pointer;
+transition: color 180ms ease;
+}
+
+.unified-sort-year,
+.unified-sort-category {
+justify-self: end;
+}
+
+.unified-sort-button:hover,
+.unified-sort-button[aria-sort] {
+color: var(--tertiary-color);
+}
+
+.unified-sort-button:focus-visible {
+outline: 2px solid var(--primary-bg-color);
+outline-offset: 4px;
+}
+
+/* Freccia: dopo il testo in "Nome", prima del testo nelle colonne allineate a destra */
+.unified-sort-button::before,
+.unified-sort-button::after {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+}
+
+.unified-sort-button::after {
+left: 100%;
+margin-left: 0.4em;
+}
+
+.unified-sort-button::before {
+right: 100%;
+margin-right: 0.4em;
+}
+
+.unified-sort-button[data-sort="name"][aria-sort="ascending"]::after,
+.unified-sort-button:not([data-sort="name"])[aria-sort="ascending"]::before {
+content: "\2191";
+}
+
+.unified-sort-button[data-sort="name"][aria-sort="descending"]::after,
+.unified-sort-button:not([data-sort="name"])[aria-sort="descending"]::before {
+content: "\2193";
 }
 
 /* ==========================================================================
@@ -818,10 +885,14 @@ margin-top: 2rem;
 }
 
 .unified-project-link {
-grid-template-columns: 64px minmax(0, 1fr) 58px minmax(104px, max-content);
+grid-template-columns: minmax(0, 1fr) 58px minmax(104px, max-content);
 min-height: 46px;
 border-bottom-width: 2px;
 font-size: clamp(1.2rem, 3.7vw, 2rem);
+}
+
+.unified-sort {
+grid-template-columns: minmax(0, 1fr) 58px minmax(104px, max-content);
 }
 
 footer {
@@ -847,16 +918,11 @@ margin-top: 1.5rem;
 
 .unified-project-link {
 grid-template-areas:
-  "number name name"
-  "number year category";
-grid-template-columns: 52px minmax(0, 1fr) max-content;
+  "name name"
+  "year category";
+grid-template-columns: minmax(0, 1fr) max-content;
 gap: 7px 10px;
 padding-bottom: 8px;
-}
-
-.unified-project-number {
-grid-area: number;
-align-self: start;
 }
 
 .unified-project-name {
@@ -871,6 +937,16 @@ text-align: left;
 
 .unified-project-category {
 grid-area: category;
+}
+
+.unified-sort {
+display: flex;
+gap: 1.5rem;
+}
+
+.unified-sort-year,
+.unified-sort-category {
+justify-self: start;
 }
 }
 
