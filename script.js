@@ -414,4 +414,84 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+  /* ==========================================================================
+     ANTEPRIMA COPERTINA SEGUENDO IL CURSORE (lavori.html)
+     Ogni voce dell'elenco ha data-preview con il percorso della copertina del progetto
+     (la stessa immagine usata come .project-cover nella pagina di dettaglio).
+     ========================================================================== */
+
+  const previewLinks = document.querySelectorAll(".unified-project-link[data-preview]");
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (previewLinks.length > 0 && canHover && !prefersReducedMotion) {
+    const preview = document.createElement("div");
+    preview.className = "works-preview";
+    preview.setAttribute("aria-hidden", "true");
+    const previewImage = document.createElement("img");
+    previewImage.alt = "";
+    preview.appendChild(previewImage);
+    document.body.appendChild(preview);
+
+    // Precarica le copertine così compaiono subito
+    new Set([...previewLinks].map((link) => link.dataset.preview)).forEach((src) => {
+      const image = new Image();
+      image.src = src;
+    });
+
+    const offset = 12;
+    const follow = 1; // 1 = segue il cursore istantaneamente; valori più bassi = più morbido
+    let mouseX = 0;
+    let mouseY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let frame = null;
+    let isActive = false;
+
+    const place = (x, y) => {
+      const height = preview.offsetHeight;
+      // Sempre a destra del cursore, centrata in verticale (senza uscire dallo schermo in alto/basso)
+      const left = x + offset;
+      const top = Math.min(Math.max(y - height / 2, 8), window.innerHeight - height - 8);
+      preview.style.transform = `translate3d(${Math.round(left)}px, ${Math.round(top)}px, 0)`;
+    };
+
+    const tick = () => {
+      currentX += (mouseX - currentX) * follow;
+      currentY += (mouseY - currentY) * follow;
+      place(currentX, currentY);
+      frame = isActive ? window.requestAnimationFrame(tick) : null;
+    };
+
+    const showPreview = (link, event) => {
+      previewImage.src = link.dataset.preview;
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+      if (!isActive && !preview.classList.contains("is-visible")) {
+        currentX = mouseX;
+        currentY = mouseY;
+        place(currentX, currentY);
+      }
+      isActive = true;
+      preview.classList.add("is-visible");
+      if (frame === null) frame = window.requestAnimationFrame(tick);
+    };
+
+    const hidePreview = () => {
+      isActive = false;
+      preview.classList.remove("is-visible");
+    };
+
+    previewLinks.forEach((link) => {
+      link.addEventListener("mouseenter", (event) => showPreview(link, event));
+      link.addEventListener("mousemove", (event) => {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+      });
+      link.addEventListener("mouseleave", hidePreview);
+    });
+
+    // Se si scorre la pagina con la rotella la voce sotto il cursore cambia: l'anteprima si nasconde finché il mouse non si muove
+    window.addEventListener("scroll", hidePreview, { passive: true });
+  }
 });
