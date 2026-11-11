@@ -780,7 +780,7 @@ body.lavori-page footer {
 width: 100%;
 height: auto;
 margin-top: auto;
-padding: clamp(2rem, 4.5vw, 3.5rem) 0 1rem;
+margin: var(--footer-gap) 0 1rem;
 }
 
 footer p {
@@ -1188,6 +1188,8 @@ CHI SONO - SPECIFIC STYLES
 
 :root {
 --neon-green: var(--primary-bg-color);
+/* Distanza tra l'ultimo contenuto e il footer: unica per tutte le pagine */
+--footer-gap: clamp(4rem, 8vw, 9rem);
 }
 
 /* Layout: la pagina scorre in verticale (nessuna altezza fissa del canvas) */
@@ -1329,11 +1331,15 @@ line-height: inherit;
 }
 
 /* Footer */
+body.about-page .about-content {
+margin-bottom: 0;
+}
+
 body.about-page .about-footer {
 position: static;
 height: auto;
 margin-top: auto;
-padding: clamp(5rem, 8.5vw, 8rem) 0 2rem;
+padding: var(--footer-gap) 0 2rem;
 font-size: clamp(0.95rem, 1.28vw, 1.5rem);
 font-weight: 400;
 }
@@ -1564,7 +1570,7 @@ margin: 0 auto;
 
 body.project-page footer.project-footer {
 justify-content: space-between;
-padding-top: clamp(3rem, 8vw, 9rem);
+padding-top: 0;
 font-weight: 400;
 }
 
@@ -1705,4 +1711,28 @@ font-family: "Funnel Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: var(--size-body);
 font-weight: 700;
 line-height: 1.2;
+}
+/* =========================================
+FOOTER SEMPRE NEL FLUSSO (tranne Home)
+Evita che contenuti e footer si sovrappongano: nelle pagine Lavori, Chi sono e progetto
+canvas, contenuto e footer seguono il flusso normale e il footer sta sotto l'ultimo elemento.
+========================================= */
+body.about-page .landing-canvas,
+body.lavori-page .landing-canvas {
+height: auto;
+min-height: calc(100dvh - 4.2dvh);
+}
+
+body.about-page .landing-content {
+position: static;
+inset: auto;
+height: auto;
+}
+
+body.about-page footer,
+body.lavori-page footer {
+position: relative;
+inset: auto;
+height: auto;
+margin-top: 72px;
 }
