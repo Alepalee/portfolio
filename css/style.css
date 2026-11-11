@@ -185,7 +185,7 @@ justify-content: center;
 }
 
 .graphic-role sup {
-color: #6c0;
+color: var(--primary-bg-color);
 font-size: 60%;
 font-weight: 400;
 line-height: 0;
@@ -1215,8 +1215,8 @@ margin-bottom: 5rem;
 }
 
 .nav-block {
-background-color: #fff;
-color: #000;
+background-color: var(--tertiary-color);
+color: var(--secondary-color);
 text-transform: uppercase;
 text-decoration: none;
 line-height: 1;
@@ -1286,7 +1286,7 @@ color: var(--neon-green);
 display: inline-block;
 margin: 0;
 padding: 0.08em 0.06em;
-color: #000;
+color: var(--secondary-color);
 background-color: var(--neon-green);
 font-size: clamp(2rem, 4.2vw, 5rem);
 line-height: 1;
@@ -1449,11 +1449,21 @@ white-space: normal;
 }
 
 .project-cover {
-flex-shrink: 0;
-/* banner: circa tre righe di titolo in altezza */
+/* Box fisso del banner: l'immagine (logo o foto, di qualsiasi proporzione)
+   viene adattata per intero dentro il box, sia in altezza che in larghezza.
+   Per cambiare la dimensione modifica width (larghezza) e height (altezza). */
+flex: 0 0 auto;
+display: block;
+width: 28%;
 height: calc(var(--project-title-size) * 2.8);
-width: auto;
 margin-top: 0;
+object-fit: contain;
+object-position: right center;
+}
+
+body.project-page .project-header .works-title {
+flex: 0 1 auto;
+min-width: 0;
 }
 
 .project-meta {
@@ -1488,7 +1498,7 @@ margin: 0;
 display: inline-block;
 margin: 0;
 padding: 0.08em 0.06em;
-color: #000;
+color:var(--secondary-color);
 background-color: var(--project-accent);
 font-size: clamp(2rem, 4.2vw, 5rem);
 font-weight: 600;
@@ -1604,8 +1614,9 @@ max-width: 100%;
 }
 
 .project-cover {
-width: 45%;
-height: auto;
+width: 60%;
+height: calc(var(--project-title-size) * 2.8);
+object-position: left center;
 }
 
 .project-hero {
