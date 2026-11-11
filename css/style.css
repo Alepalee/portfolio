@@ -42,7 +42,8 @@ font-display: swap;
 1. Shared Global Styles & Reset
 ========================================================================== */
 :root {
---primary-bg-color: #00ff95;
+--primary-bg-color: linear-gradient(90deg, #00ffa6, #15ff00);
+--primary-solid: #ff7e5f; /* colore pieno per outline e altri punti dove il gradiente non funziona */
 --secondary-color: #000;
 --tertiary-color: #fff;
 color: var(--tertiary-color);
@@ -420,9 +421,9 @@ padding: 0;
 list-style: none;
 }
 
-.unified-project-item {
+/*.unified-project-item {
 padding-bottom: 6px;
-}
+}*/
 
 .unified-project-link {
 position: relative;
@@ -431,7 +432,8 @@ grid-template-columns: minmax(0, 1000px) 70px minmax(0, 1fr);
 align-items: center;
 width: 100%;
 min-height: 52px;
-border-bottom: 3px solid var(--primary-bg-color);
+border-bottom: 3px solid;
+border-image: var(--primary-bg-color) 1;
 font-size: clamp(1.75rem, 2vw, 2.5rem);
 font-weight: 300;
 line-height: 1.08;
@@ -466,13 +468,14 @@ white-space: nowrap;
 
 .unified-project-link:hover .unified-project-name,
 .unified-project-link:focus-visible .unified-project-name {
-color: var(--primary--color);
+color: var(--secondary-color);
 }
 
 .unified-project-link:hover,
 .unified-project-link:focus-visible {
 color: var(--secondary-color);
 background: var(--primary-bg-color);
+border-image: none;
 border-color: var(--secondary-color);
 }
 
@@ -484,7 +487,7 @@ color: var(--secondary-color);
 }
 
 .unified-project-link:focus-visible {
-outline: 2px solid var(--primary-bg-color);
+outline: 2px solid var(--primary-solid);
 outline-offset: 5px;
 }
 
@@ -524,7 +527,7 @@ color: var(--tertiary-color);
 }
 
 .unified-sort-button:focus-visible {
-outline: 2px solid var(--primary-bg-color);
+outline: 2px solid var(--primary-solid);
 outline-offset: 4px;
 }
 
@@ -1040,7 +1043,7 @@ opacity: 0.8;
 /* Badge / Etichette rettangolari verdi condivise */
 .badge-tag {
 display: inline-block;
-background-color: var(--primary-bg-color);
+background: var(--primary-bg-color);
 color: var(--secondary-color);
 font-family: 'Funnel Display', sans-serif;
 font-size: 2.2rem;
@@ -1287,7 +1290,7 @@ display: inline-block;
 margin: 0;
 padding: 0.08em 0.06em;
 color: var(--secondary-color);
-background-color: var(--neon-green);
+background: var(--neon-green);
 font-size: clamp(2rem, 4.2vw, 5rem);
 line-height: 1;
 text-transform: uppercase;
@@ -1297,7 +1300,8 @@ text-transform: uppercase;
 .link-green {
 color: var(--neon-green);
 text-decoration: none;
-border-bottom: 1px solid var(--neon-green);
+border-bottom: 1px solid;
+border-image: var(--primary-bg-color) 1;
 box-decoration-break: clone;
 -webkit-box-decoration-break: clone;
 }
@@ -1499,7 +1503,7 @@ display: inline-block;
 margin: 0;
 padding: 0.08em 0.06em;
 color:var(--secondary-color);
-background-color: var(--project-accent);
+background: var(--project-accent);
 font-size: clamp(2rem, 4.2vw, 5rem);
 font-weight: 600;
 line-height: 1;
@@ -1745,6 +1749,8 @@ body.lavori-page footer {
 position: relative;
 inset: auto;
 height: auto;
+margin-top: 10rem;
+margin-bottom: 2rem;
 }
 
 /* =========================================
@@ -1785,3 +1791,204 @@ filter:
 display: none;
 }
 }
+
+/* =========================================
+TESTI CON SFUMATURA
+Il gradiente non e' un colore: il testo diventa trasparente e lo sfondo viene ritagliato a forma di lettere.
+Per le lettere animate (.letter) script.js imposta --gx (posizione della lettera) e --gw (larghezza dell'intera scritta),
+cosi' la sfumatura scorre in modo continuo su tutta la parola invece di ripartire a ogni lettera.
+========================================= */
+:is(.name-line, .text-green, .link-green, .text-accent, .green-text, .unified-project-number, .unified-project-meta) :is(.letter, .works-reveal-letter) {
+color: transparent;
+background-image: var(--primary-bg-color);
+background-size: var(--gw, 100%) 100%;
+background-position: calc(var(--gx, 0px) * -1) 0;
+background-repeat: no-repeat;
+-webkit-background-clip: text;
+background-clip: text;
+}
+
+/* Elementi senza lettere animate */
+.graphic-role sup,
+.unified-sort-button,
+:is(.text-green, .link-green, .text-accent, .green-text, .unified-project-number, .unified-project-meta):not(:has(.letter, .works-reveal-letter)) {
+color: transparent;
+background-image: var(--primary-bg-color);
+-webkit-background-clip: text;
+background-clip: text;
+}
+
+.name-line {
+color: inherit;
+}
+
+/* Hover: testo nero a tinta unita sulla riga sfumata */
+.unified-project-link:hover :is(.unified-project-number, .unified-project-meta),
+.unified-project-link:focus-visible :is(.unified-project-number, .unified-project-meta),
+.unified-project-link:hover :is(.unified-project-number, .unified-project-meta) :is(.letter, .works-reveal-letter),
+.unified-project-link:focus-visible :is(.unified-project-number, .unified-project-meta) :is(.letter, .works-reveal-letter) {
+color: var(--secondary-color);
+background-image: none;
+}
+
+.unified-sort-button:hover,
+.unified-sort-button[aria-sort] {
+color: var(--tertiary-color);
+background-image: none;
+}
+
+
+/* =========================================
+ANIMAZIONE ELENCO: righe e lettere oltre quelle gia' definite
+Servono perche' ogni riga/lettera ha bisogno del proprio ritardo: senza, compaiono senza animazione.
+Righe supportate: fino a 40. Lettere per scritta: fino a 100.
+========================================= */
+.unified-project-item:nth-child(12) { --row-delay: 1255ms; }
+.unified-project-item:nth-child(13) { --row-delay: 1310ms; }
+.unified-project-item:nth-child(14) { --row-delay: 1365ms; }
+.unified-project-item:nth-child(15) { --row-delay: 1420ms; }
+.unified-project-item:nth-child(16) { --row-delay: 1475ms; }
+.unified-project-item:nth-child(17) { --row-delay: 1530ms; }
+.unified-project-item:nth-child(18) { --row-delay: 1585ms; }
+.unified-project-item:nth-child(19) { --row-delay: 1640ms; }
+.unified-project-item:nth-child(20) { --row-delay: 1695ms; }
+.unified-project-item:nth-child(21) { --row-delay: 1750ms; }
+.unified-project-item:nth-child(22) { --row-delay: 1805ms; }
+.unified-project-item:nth-child(23) { --row-delay: 1860ms; }
+.unified-project-item:nth-child(24) { --row-delay: 1915ms; }
+.unified-project-item:nth-child(25) { --row-delay: 1970ms; }
+.unified-project-item:nth-child(26) { --row-delay: 2025ms; }
+.unified-project-item:nth-child(27) { --row-delay: 2080ms; }
+.unified-project-item:nth-child(28) { --row-delay: 2135ms; }
+.unified-project-item:nth-child(29) { --row-delay: 2190ms; }
+.unified-project-item:nth-child(30) { --row-delay: 2245ms; }
+.unified-project-item:nth-child(31) { --row-delay: 2300ms; }
+.unified-project-item:nth-child(32) { --row-delay: 2355ms; }
+.unified-project-item:nth-child(33) { --row-delay: 2410ms; }
+.unified-project-item:nth-child(34) { --row-delay: 2465ms; }
+.unified-project-item:nth-child(35) { --row-delay: 2520ms; }
+.unified-project-item:nth-child(36) { --row-delay: 2575ms; }
+.unified-project-item:nth-child(37) { --row-delay: 2630ms; }
+.unified-project-item:nth-child(38) { --row-delay: 2685ms; }
+.unified-project-item:nth-child(39) { --row-delay: 2740ms; }
+.unified-project-item:nth-child(40) { --row-delay: 2795ms; }
+.letter-41 { --letter-index: 41; }
+.works-letter-41 { --works-letter-index: 41; }
+.letter-42 { --letter-index: 42; }
+.works-letter-42 { --works-letter-index: 42; }
+.letter-43 { --letter-index: 43; }
+.works-letter-43 { --works-letter-index: 43; }
+.letter-44 { --letter-index: 44; }
+.works-letter-44 { --works-letter-index: 44; }
+.letter-45 { --letter-index: 45; }
+.works-letter-45 { --works-letter-index: 45; }
+.letter-46 { --letter-index: 46; }
+.works-letter-46 { --works-letter-index: 46; }
+.letter-47 { --letter-index: 47; }
+.works-letter-47 { --works-letter-index: 47; }
+.letter-48 { --letter-index: 48; }
+.works-letter-48 { --works-letter-index: 48; }
+.letter-49 { --letter-index: 49; }
+.works-letter-49 { --works-letter-index: 49; }
+.letter-50 { --letter-index: 50; }
+.works-letter-50 { --works-letter-index: 50; }
+.letter-51 { --letter-index: 51; }
+.works-letter-51 { --works-letter-index: 51; }
+.letter-52 { --letter-index: 52; }
+.works-letter-52 { --works-letter-index: 52; }
+.letter-53 { --letter-index: 53; }
+.works-letter-53 { --works-letter-index: 53; }
+.letter-54 { --letter-index: 54; }
+.works-letter-54 { --works-letter-index: 54; }
+.letter-55 { --letter-index: 55; }
+.works-letter-55 { --works-letter-index: 55; }
+.letter-56 { --letter-index: 56; }
+.works-letter-56 { --works-letter-index: 56; }
+.letter-57 { --letter-index: 57; }
+.works-letter-57 { --works-letter-index: 57; }
+.letter-58 { --letter-index: 58; }
+.works-letter-58 { --works-letter-index: 58; }
+.letter-59 { --letter-index: 59; }
+.works-letter-59 { --works-letter-index: 59; }
+.letter-60 { --letter-index: 60; }
+.works-letter-60 { --works-letter-index: 60; }
+.letter-61 { --letter-index: 61; }
+.works-letter-61 { --works-letter-index: 61; }
+.letter-62 { --letter-index: 62; }
+.works-letter-62 { --works-letter-index: 62; }
+.letter-63 { --letter-index: 63; }
+.works-letter-63 { --works-letter-index: 63; }
+.letter-64 { --letter-index: 64; }
+.works-letter-64 { --works-letter-index: 64; }
+.letter-65 { --letter-index: 65; }
+.works-letter-65 { --works-letter-index: 65; }
+.letter-66 { --letter-index: 66; }
+.works-letter-66 { --works-letter-index: 66; }
+.letter-67 { --letter-index: 67; }
+.works-letter-67 { --works-letter-index: 67; }
+.letter-68 { --letter-index: 68; }
+.works-letter-68 { --works-letter-index: 68; }
+.letter-69 { --letter-index: 69; }
+.works-letter-69 { --works-letter-index: 69; }
+.letter-70 { --letter-index: 70; }
+.works-letter-70 { --works-letter-index: 70; }
+.letter-71 { --letter-index: 71; }
+.works-letter-71 { --works-letter-index: 71; }
+.letter-72 { --letter-index: 72; }
+.works-letter-72 { --works-letter-index: 72; }
+.letter-73 { --letter-index: 73; }
+.works-letter-73 { --works-letter-index: 73; }
+.letter-74 { --letter-index: 74; }
+.works-letter-74 { --works-letter-index: 74; }
+.letter-75 { --letter-index: 75; }
+.works-letter-75 { --works-letter-index: 75; }
+.letter-76 { --letter-index: 76; }
+.works-letter-76 { --works-letter-index: 76; }
+.letter-77 { --letter-index: 77; }
+.works-letter-77 { --works-letter-index: 77; }
+.letter-78 { --letter-index: 78; }
+.works-letter-78 { --works-letter-index: 78; }
+.letter-79 { --letter-index: 79; }
+.works-letter-79 { --works-letter-index: 79; }
+.letter-80 { --letter-index: 80; }
+.works-letter-80 { --works-letter-index: 80; }
+.letter-81 { --letter-index: 81; }
+.works-letter-81 { --works-letter-index: 81; }
+.letter-82 { --letter-index: 82; }
+.works-letter-82 { --works-letter-index: 82; }
+.letter-83 { --letter-index: 83; }
+.works-letter-83 { --works-letter-index: 83; }
+.letter-84 { --letter-index: 84; }
+.works-letter-84 { --works-letter-index: 84; }
+.letter-85 { --letter-index: 85; }
+.works-letter-85 { --works-letter-index: 85; }
+.letter-86 { --letter-index: 86; }
+.works-letter-86 { --works-letter-index: 86; }
+.letter-87 { --letter-index: 87; }
+.works-letter-87 { --works-letter-index: 87; }
+.letter-88 { --letter-index: 88; }
+.works-letter-88 { --works-letter-index: 88; }
+.letter-89 { --letter-index: 89; }
+.works-letter-89 { --works-letter-index: 89; }
+.letter-90 { --letter-index: 90; }
+.works-letter-90 { --works-letter-index: 90; }
+.letter-91 { --letter-index: 91; }
+.works-letter-91 { --works-letter-index: 91; }
+.letter-92 { --letter-index: 92; }
+.works-letter-92 { --works-letter-index: 92; }
+.letter-93 { --letter-index: 93; }
+.works-letter-93 { --works-letter-index: 93; }
+.letter-94 { --letter-index: 94; }
+.works-letter-94 { --works-letter-index: 94; }
+.letter-95 { --letter-index: 95; }
+.works-letter-95 { --works-letter-index: 95; }
+.letter-96 { --letter-index: 96; }
+.works-letter-96 { --works-letter-index: 96; }
+.letter-97 { --letter-index: 97; }
+.works-letter-97 { --works-letter-index: 97; }
+.letter-98 { --letter-index: 98; }
+.works-letter-98 { --works-letter-index: 98; }
+.letter-99 { --letter-index: 99; }
+.works-letter-99 { --works-letter-index: 99; }
+.letter-100 { --letter-index: 100; }
+.works-letter-100 { --works-letter-index: 100; }

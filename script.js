@@ -495,3 +495,34 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", hidePreview, { passive: true });
   }
 });
+
+
+// Sfumatura continua sui testi animati: ogni lettera riceve la sua posizione (--gx) e la larghezza totale della scritta (--gw)
+(() => {
+  const groups = ".name-line, .text-green, .link-green, .text-accent, .green-text, .unified-project-number, .unified-project-meta";
+
+  const alignGradient = () => {
+    document.querySelectorAll(groups).forEach((group) => {
+      const letters = group.querySelectorAll(".letter, .works-reveal-letter");
+      if (!letters.length) return;
+
+      const rects = Array.from(letters, (letter) => letter.getBoundingClientRect());
+      const left = Math.min(...rects.map((rect) => rect.left));
+      const width = Math.max(...rects.map((rect) => rect.right)) - left;
+
+      letters.forEach((letter, index) => {
+        letter.style.setProperty("--gx", `${rects[index].left - left}px`);
+        letter.style.setProperty("--gw", `${width}px`);
+      });
+    });
+  };
+
+  const run = () => requestAnimationFrame(alignGradient);
+
+  window.addEventListener("load", run);
+  window.addEventListener("resize", run);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+  // le lettere vengono create dopo il caricamento (e le righe dell'elenco si riordinano): ricalcolo anche poco dopo
+  [300, 1500, 3500].forEach((delay) => setTimeout(run, delay));
+  document.addEventListener("click", () => setTimeout(run, 50));
+})();
