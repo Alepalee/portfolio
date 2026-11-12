@@ -42,7 +42,7 @@ font-display: swap;
 1. Shared Global Styles & Reset
 ========================================================================== */
 :root {
---primary-bg-color: linear-gradient(90deg, #00ffa6, #15ff00);
+--primary-bg-color: linear-gradient(90deg, #00ffa6c9, #15ff00);
 --primary-solid: #ff7e5f; /* colore pieno per outline e altri punti dove il gradiente non funziona */
 --secondary-color: #000;
 --tertiary-color: #fff;
@@ -329,10 +329,11 @@ text-align: right;
 position: absolute;
 top: 0;
 left: 0;
-width: clamp(4.6rem, 7.04vw, 8rem);
+width: clamp(4.6rem, 9.04vw, 8rem);
 height: clamp(4.6rem, 7.04vw, 8rem);
 overflow: hidden;
 background: var(--secondary-color);
+padding-left: 8px;
 }
 
 .portrait-slot::after {
@@ -432,8 +433,11 @@ grid-template-columns: minmax(0, 1000px) 70px minmax(0, 1fr);
 align-items: center;
 width: 100%;
 min-height: 52px;
-border-bottom: 3px solid;
-border-image: var(--primary-bg-color) 1;
+/* Il bordo inferiore e' la parte bassa dello sfondo sfumato: allo hover lo sfondo cresce fino a coprire tutto il box */
+background-image: var(--primary-bg-color);
+background-repeat: no-repeat;
+background-position: left bottom;
+background-size: 100% 3px;
 font-size: clamp(1.75rem, 2vw, 2.5rem);
 font-weight: 300;
 line-height: 1.08;
@@ -442,8 +446,7 @@ text-transform: uppercase;
 isolation: isolate;
 transition:
 color 180ms ease,
-background-color 180ms ease,
-border-color 180ms ease;
+background-size 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .unified-project-number,
@@ -474,9 +477,7 @@ color: var(--secondary-color);
 .unified-project-link:hover,
 .unified-project-link:focus-visible {
 color: var(--secondary-color);
-background: var(--primary-bg-color);
-border-image: none;
-border-color: var(--secondary-color);
+background-size: 100% 100%;
 }
 
 .unified-project-link:hover .unified-project-number,
@@ -890,7 +891,7 @@ margin-top: 2rem;
 .unified-project-link {
 grid-template-columns: minmax(0, 1fr) 58px minmax(104px, max-content);
 min-height: 46px;
-border-bottom-width: 2px;
+background-size: 100% 2px;
 font-size: clamp(1.2rem, 3.7vw, 2rem);
 }
 
@@ -1276,7 +1277,7 @@ max-width: 100%;
 margin: 0;
 font-size: clamp(1.4rem, 2.99vw, 3.4rem);
 font-weight: 500;
-line-height: 1.2;
+line-height: 1;
 text-indent: 20%;
 text-transform: uppercase;
 }
@@ -1325,7 +1326,7 @@ padding-right: 0.41vw;
 font-family: "Funnel Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: clamp(1rem, 1.8vw, 2.1rem);
 font-weight: 700;
-line-height: 1.2;
+line-height: 1;
 }
 
 .about-col-text p {
@@ -1515,7 +1516,7 @@ max-width: 100%;
 margin: clamp(2.5rem, 7vw, 8rem) 0;
 font-size: clamp(1.1rem, 2.1vw, 2.4rem);
 font-weight: 500;
-line-height: 1.2;
+line-height: 1;
 text-indent: 4.5vw;
 text-transform: uppercase;
 }
@@ -1538,7 +1539,7 @@ padding-right: 0.41vw;
 font-family: "Funnel Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: clamp(1rem, 1.8vw, 2.1rem);
 font-weight: 700;
-line-height: 1.2;
+line-height: 1;
 }
 
 .project-details-text p {
@@ -1715,7 +1716,7 @@ body .about-intro,
 body .project-intro {
 font-size: var(--size-intro);
 font-weight: 500;
-line-height: 1.2;
+line-height: 1;
 text-transform: uppercase;
 }
 
@@ -1725,7 +1726,7 @@ body .project-details-text {
 font-family: "Funnel Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: var(--size-body);
 font-weight: 700;
-line-height: 1.2;
+line-height: 1;
 }
 /* =========================================
 FOOTER SEMPRE NEL FLUSSO (tranne Home)
@@ -1779,11 +1780,11 @@ display: block;
 width: 100%;
 height: 100%;
 object-fit: contain;
-/* Alone chiaro sottile (visibile sul nero) + ombra scura morbida (visibile sul bianco) */
+/* Alone chiaro sottile (visibile sul nero) + ombra scura morbida (visibile sul bianco)
 filter:
   drop-shadow(0 0 1px rgba(255, 255, 255, 0.85))
   drop-shadow(0 0px 6px rgba(0, 0, 0, 1));
-  
+*/
 }
 
 @media (hover: none), (prefers-reduced-motion: reduce) {
